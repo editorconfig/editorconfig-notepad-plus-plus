@@ -31,9 +31,9 @@ installed.
 4. Open your command line prompt, and use `cd` command to switch current
    working directory to the root of the source tree of the Notepad++ plugin.
    Use the following command to generate the project file:
-   ```
-   C:\path\to\editorconfig-notepad-plus-plus> cmake .
-   ```
+
+   `C:\path\to\editorconfig-notepad-plus-plus> cmake .`
+
    After this project file is built, double click on the project file and use
    Microsoft Visual C++ to build it.
 
