@@ -1,4 +1,5 @@
-//this file is part of notepad++
+//this file is originally part of Notepad++, and it is used as part of
+//EditorConfig plugin for Notepad++ here.
 //Copyright (C)2003 Don HO <donho@altern.org>
 //
 //This program is free software; you can redistribute it and/or
