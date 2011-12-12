@@ -30,6 +30,11 @@ endif(MSVC)
 
 add_definitions(-DUNICODE)
 
+# suppress warning C4996 for MSVC
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(MSVC)
+
 ## section: source files
 set(NppEditorConfig_SOURCE_FILES
     ./NppPluginEditorConfig.cpp
