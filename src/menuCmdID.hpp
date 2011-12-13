@@ -16,8 +16,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef MENUCMDID_H
-#define MENUCMDID_H
+#ifndef MENUCMDID_HPP
+#define MENUCMDID_HPP
 
 #define IDM 40000
 
@@ -304,4 +304,4 @@
 
 #define	IDM_EXECUTE  (IDM + 9000)
 
-#endif //MENUCMDID_H
+#endif //MENUCMDID_HPP

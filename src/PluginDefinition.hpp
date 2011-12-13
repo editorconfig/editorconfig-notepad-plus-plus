@@ -18,13 +18,13 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#ifndef PLUGINDEFINITION_H
-#define PLUGINDEFINITION_H
+#ifndef PLUGINDEFINITION_HPP
+#define PLUGINDEFINITION_HPP
 
 //
 // All difinitions of plugin interface
 //
-#include "PluginInterface.h"
+#include "PluginInterface.hpp"
 
 //-------------------------------------//
 //-- STEP 1. DEFINE YOUR PLUGIN NAME --//
@@ -76,4 +76,4 @@ bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey 
 void hello();
 void helloDlg();
 
-#endif //PLUGINDEFINITION_H
+#endif //PLUGINDEFINITION_HPP

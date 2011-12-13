@@ -20,7 +20,7 @@
 
 #include <string>
 #include <sstream>
-#include "PluginDefinition.h"
+#include "PluginDefinition.hpp"
 #include "editorconfig/editorconfig.h"
 
 extern FuncItem funcItem[nbFunc];

@@ -42,11 +42,11 @@ set(NppEditorConfig_SOURCE_FILES
 
 ## section: header files
 set(NppEditorConfig_HEADER_FILES
-    ./menuCmdID.h
-    ./Notepad_plus_msgs.h
-    ./PluginDefinition.h
-    ./PluginInterface.h
-    ./Scintilla.h)
+    ./menuCmdID.hpp
+    ./Notepad_plus_msgs.hpp
+    ./PluginDefinition.hpp
+    ./PluginInterface.hpp
+    ./Scintilla.hpp)
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
 

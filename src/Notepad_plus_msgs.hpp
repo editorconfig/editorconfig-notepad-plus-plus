@@ -16,8 +16,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef NOTEPAD_PLUS_MSGS_H
-#define NOTEPAD_PLUS_MSGS_H
+#ifndef NOTEPAD_PLUS_MSGS_HPP
+#define NOTEPAD_PLUS_MSGS_HPP
 
 //#include "menuCmdID.h"
 
@@ -442,4 +442,4 @@ struct CommunicationInfo {
 //scnNotification->nmhdr.hwndFrom = newIndex;
 //scnNotification->nmhdr.idFrom = BufferID;
 
-#endif //NOTEPAD_PLUS_MSGS_H
+#endif //NOTEPAD_PLUS_MSGS_HPP

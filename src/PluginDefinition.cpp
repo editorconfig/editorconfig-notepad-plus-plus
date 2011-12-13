@@ -18,8 +18,8 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include "PluginDefinition.h"
-#include "menuCmdID.h"
+#include "PluginDefinition.hpp"
+#include "menuCmdID.hpp"
 
 //
 // The plugin data that Notepad++ needs
