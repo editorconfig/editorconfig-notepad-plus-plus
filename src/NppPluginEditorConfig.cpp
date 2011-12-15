@@ -95,7 +95,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
     int err_num;
 
     switch (notifyCode->nmhdr.code) {
-    case NPPN_FILEOPENED: // When new file opened, run set the conf
+    case NPPN_BUFFERACTIVATED: // When new file opened, run set the conf
         eh = editorconfig_handle_init();
 
         // get the file name
@@ -111,7 +111,9 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 #endif
 
         /* start parsing */
-        if ((err_num = editorconfig_parse(fileName, eh)) != 0) {
+        if ((err_num = editorconfig_parse(fileName, eh)) != 0 &&
+                /* Ignore full path error, whose error code is -2 */
+                err_num != -2) {
             std::tstringstream err_msg;
             err_msg << TEXT("EditorConfig Error: ") << err_num;
             ::MessageBox(NULL, err_msg.str().c_str(),
