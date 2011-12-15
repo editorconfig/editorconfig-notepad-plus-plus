@@ -28,8 +28,6 @@ if(MSVC)
     endforeach(flag_var)
 endif(MSVC)
 
-add_definitions(-DUNICODE)
-
 # suppress warning C4996 for MSVC
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -54,8 +52,22 @@ set_source_files_properties(NppEditorConfig_HEADER_FILES
     PROPERTIES HEADER_FILE_ONLY TRUE)
 list(APPEND NppEditorConfig_SOURCE_FILES ${NppEditorConfig_HEADER_FILES})
 
-## section: add target
-add_library(NppEditorConfig SHARED ${NppEditorConfig_SOURCE_FILES})
+# add ansi target
+add_library(NppEditorConfig_ansi SHARED ${NppEditorConfig_SOURCE_FILES})
+set_target_properties(NppEditorConfig_ansi PROPERTIES
+    OUTPUT_NAME NppEditorConfig
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
+    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
+target_link_libraries(NppEditorConfig_ansi editorconfig)
 
-target_link_libraries(NppEditorConfig editorconfig)
+# add unicode target
+add_library(NppEditorConfig_unicode SHARED ${NppEditorConfig_SOURCE_FILES})
+set_target_properties(NppEditorConfig_unicode PROPERTIES
+    OUTPUT_NAME NppEditorConfig
+    COMPILE_DEFINITIONS UNICODE
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
+    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
+target_link_libraries(NppEditorConfig_unicode editorconfig)
 
