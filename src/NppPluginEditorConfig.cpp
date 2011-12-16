@@ -112,8 +112,9 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 
         /* start parsing */
         if ((err_num = editorconfig_parse(fileName, eh)) != 0 &&
-                /* Ignore full path error, whose error code is -2 */
-                err_num != -2) {
+                /* Ignore full path error, whose error code is
+                 * EDITORCONFIG_PARSE_NOT_FULL_PATH */
+                err_num != EDITORCONFIG_PARSE_NOT_FULL_PATH) {
             std::tstringstream err_msg;
             err_msg << TEXT("EditorConfig Error: ") << err_num;
             ::MessageBox(NULL, err_msg.str().c_str(),
