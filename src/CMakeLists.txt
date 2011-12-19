@@ -56,7 +56,7 @@ list(APPEND NppEditorConfig_SOURCE_FILES ${NppEditorConfig_HEADER_FILES})
 add_library(NppEditorConfig_ansi SHARED ${NppEditorConfig_SOURCE_FILES})
 set_target_properties(NppEditorConfig_ansi PROPERTIES
     OUTPUT_NAME NppEditorConfig
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/ansi
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
 target_link_libraries(NppEditorConfig_ansi editorconfig)
@@ -66,7 +66,7 @@ add_library(NppEditorConfig_unicode SHARED ${NppEditorConfig_SOURCE_FILES})
 set_target_properties(NppEditorConfig_unicode PROPERTIES
     OUTPUT_NAME NppEditorConfig
     COMPILE_DEFINITIONS UNICODE
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/unicode
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
 target_link_libraries(NppEditorConfig_unicode editorconfig)
