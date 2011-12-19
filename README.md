@@ -37,8 +37,8 @@ installed.
    After this project file is built, double click on the project file and use
    Microsoft Visual C++ to build it.
 
-5. If the build succeeded, you should have `lib\unicode\NppEditorConfig.dll`
-   and `lib\ansi\NppEditorConfig.dll` in your build tree. Copy the
+5. If the build succeeded, you should have `bin\unicode\NppEditorConfig.dll`
+   and `bin\ansi\NppEditorConfig.dll` in your build tree. Copy the
    corresponding one (the unicode one if your Notepad++ is unicode version or
    the ansi one if your Notepad++ is ansi version) to your the plugin directory
    of the Notepad++ directory to complete the installation.
