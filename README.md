@@ -16,23 +16,15 @@ Before installation, you must have both [cmake][] and [Microsoft Visual C++][]
 installed.
 
 1. Download the [EditorConfig core][] and follow the instructions in the README
-   and INSTALL files to compile it with Microsoft Visual C++. After compiling
-   the [EditorConfig core][], you should have a file named
-   `editorconfig_static.lib` in the directory of `src\lib` of the EditorConfig
-   core build tree. 
+   and INSTALL files to compile and install it with Microsoft Visual C++.
 
 2. Download the [EditorConfig plugin for Notepad++][] and extract it.
 
-3. Copy `editorconfig_static.lib` mentioned in section `1` into the directory
-   of `src` of the Notepad++ plugin build tree, and copy the directory
-   `src\include\editorconfig` of the EditorConfig core source tree into `src`
-   of the Notepad++ plugin source tree.
-
-4. Open your command line prompt, and use `cd` command to switch current
+3. Open your command line prompt, and use `cd` command to switch current
    working directory to the root of the source tree of the Notepad++ plugin.
    Use the following command to generate the project file:
 
-   `C:\path\to\editorconfig-notepad-plus-plus> cmake .`
+   `C:\path\to\editorconfig-notepad-plus-plus> cmake . -DEDITORCONFIG_CORE_PREFIX="$(The_path_to_EditorConfig_core_prefix)"`
 
    After this project file is built, double click on the project file and use
    Microsoft Visual C++ to build it.

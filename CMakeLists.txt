@@ -1,6 +1,6 @@
 # this file is part of EditorConfig plugin for Notepad++
 # 
-# Copyright (C)2011 EditorConfig Team <http://editorconfig.org>
+# Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,6 +20,22 @@
 cmake_minimum_required(VERSION 2.4.0)
 
 project(NppEditorConfig CXX)
+
+# set the EDITORCONFIG_CORE_PREFIX. Default is the default installation
+# directory of editorconfig
+if(WIN32)
+    set(EDITORCONFIG_CORE_DEFAULT_PREFIX "C:/Program Files/editorconfig")
+endif()
+
+# if the default path does not exist, set it to empty string
+if(NOT IS_DIRECTORY ${EDITORCONFIG_CORE_DEFAULT_PREFIX})
+    set(${EDITORCONFIG_CORE_DEFAULT_PREFIX "")
+endif()
+
+if(NOT EDITORCONFIG_CORE_PREFIX)
+    set(EDITORCONFIG_CORE_PREFIX ${EDITORCONFIG_CORE_DEFAULT_PREFIX}
+        CACHE STRING "Choose the prefix of EditorConfig Core.")
+endif()
 
 add_subdirectory(src)
 

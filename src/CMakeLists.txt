@@ -1,6 +1,6 @@
 # this file is part of EditorConfig plugin for Notepad++
 # 
-# Copyright (C)2011 EditorConfig Team <http://editorconfig.org>
+# Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -47,21 +47,30 @@ set(NppEditorConfig_HEADER_FILES
     ./Scintilla.hpp)
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
+if(EDITORCONFIG_CORE_PREFIX)
+    include_directories(BEFORE "${EDITORCONFIG_CORE_PREFIX}/include")
+endif()
 
 set_source_files_properties(NppEditorConfig_HEADER_FILES
     PROPERTIES HEADER_FILE_ONLY TRUE)
 list(APPEND NppEditorConfig_SOURCE_FILES ${NppEditorConfig_HEADER_FILES})
 
 # add ansi target
+if(EDITORCONFIG_CORE_PREFIX)
+    link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
+endif()
 add_library(NppEditorConfig_ansi SHARED ${NppEditorConfig_SOURCE_FILES})
 set_target_properties(NppEditorConfig_ansi PROPERTIES
     OUTPUT_NAME NppEditorConfig
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/ansi
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
-target_link_libraries(NppEditorConfig_ansi editorconfig)
+target_link_libraries(NppEditorConfig_ansi editorconfig_static)
 
 # add unicode target
+if(EDITORCONFIG_CORE_PREFIX)
+    link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
+endif()
 add_library(NppEditorConfig_unicode SHARED ${NppEditorConfig_SOURCE_FILES})
 set_target_properties(NppEditorConfig_unicode PROPERTIES
     OUTPUT_NAME NppEditorConfig
@@ -69,5 +78,5 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/unicode
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
-target_link_libraries(NppEditorConfig_unicode editorconfig)
+target_link_libraries(NppEditorConfig_unicode editorconfig_static)
 
