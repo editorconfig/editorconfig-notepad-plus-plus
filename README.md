@@ -6,8 +6,11 @@ This is an [EditorConfig][] plugin for Notepad++.
 
 ### Install from the Binary Package
 
-Binary package is not ready yet. If you want to install from source, see the
-`Install from Source` section.
+1. Download the binary package from [the download section][download].
+
+2. Extract the compressed archive and copy the corresponding dll into your
+   Notepad++ plugin directory(the unicode dll if your Notepad++ version is
+   unicode or the ansi one if you're using the ansi version Notepad++).
 
 
 ### Install from Source
@@ -43,3 +46,4 @@ installed.
 [EditorConfig core]: https://github.com/editorconfig/editorconfig
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
 [Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
+[download]: https://github.com/editorconfig/editorconfig-notepad-plus-plus/downloads
