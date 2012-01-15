@@ -45,6 +45,123 @@ void pluginCleanUp()
 {
 }
 
+void loadConfig()
+{
+#ifdef UNICODE
+    TCHAR fileNamet[MAX_PATH];
+#endif
+    char  fileName[MAX_PATH];
+    HWND curScintilla;
+    int which;
+    int name_value_count;
+    int err_num;
+    editorconfig_handle eh;
+
+    eh = editorconfig_handle_init();
+
+    // get the file name
+    ::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH,
+#ifdef UNICODE
+            (LPARAM)fileNamet
+#else
+            (LPARAM)fileName
+#endif
+            );
+#ifdef UNICODE
+    wcstombs(fileName, fileNamet, MAX_PATH);
+#endif
+
+    /* start parsing */
+    if ((err_num = editorconfig_parse(fileName, eh)) != 0 &&
+            /* Ignore full path error, whose error code is
+             * EDITORCONFIG_PARSE_NOT_FULL_PATH */
+            err_num != EDITORCONFIG_PARSE_NOT_FULL_PATH) {
+        std::tstringstream err_msg;
+        err_msg << TEXT("EditorConfig Error: ") << err_num;
+        ::MessageBox(NULL, err_msg.str().c_str(),
+                TEXT("EditorConfig"), MB_OK);
+        editorconfig_handle_destroy(eh);
+        return;
+    }
+
+    // Get the current scintilla
+    which = -1;
+    ::SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0,
+            (LPARAM)&which);
+    if (which == -1)
+        return;
+    curScintilla = (which == 0) ? nppData._scintillaMainHandle :
+        nppData._scintillaSecondHandle;
+
+    struct
+    {
+        const char*     indent_style;
+        int             indent_size;
+        int             tab_width;
+        const char*     end_of_line;
+    } ecConf; // obtained EditorConfig settings will be here
+
+    memset(&ecConf, 0, sizeof(ecConf));
+
+    // apply the settings
+    name_value_count = editorconfig_handle_get_name_value_count(eh);
+
+    for (int i = 0; i < name_value_count; ++i) {
+        const char* name;
+        const char* value;
+
+        editorconfig_handle_get_name_value(eh, i, &name, &value);
+
+        if (!strcmp(name, "indent_style"))
+            ecConf.indent_style = value;
+        else if (!strcmp(name, "tab_width"))
+            ecConf.tab_width = atoi(value);
+        else if (!strcmp(name, "indent_size"))
+            ecConf.indent_size = atoi(value);
+        else if (!strcmp(name, "end_of_line"))
+            ecConf.end_of_line = value;
+    }
+
+    if (ecConf.indent_style) {
+        if (!strcmp(ecConf.indent_style, "tab"))
+            ::SendMessage(curScintilla, SCI_SETUSETABS, (WPARAM)true, 0);
+        else if (!strcmp(ecConf.indent_style, "space"))
+            ::SendMessage(curScintilla, SCI_SETUSETABS, (WPARAM)false, 0);
+    }
+    if (ecConf.indent_size > 0) {
+        ::SendMessage(curScintilla, SCI_SETINDENT,
+                (WPARAM)ecConf.indent_size, 0);
+
+        // We set the tab width here, so that this could be overrided then
+        // if ecConf.tab_wdith > 0
+        ::SendMessage(curScintilla, SCI_SETTABWIDTH,
+                (WPARAM)ecConf.indent_size, 0);
+    }
+
+    if (ecConf.tab_width > 0)
+        ::SendMessage(curScintilla, SCI_SETTABWIDTH,
+                (WPARAM)ecConf.tab_width, 0);
+
+    // set eol
+    if (ecConf.end_of_line) {
+        if (!strcmp(ecConf.end_of_line, "lf"))
+            ::SendMessage(curScintilla, SCI_SETEOLMODE,
+                    (WPARAM)SC_EOL_LF, 0);
+        else if (!strcmp(ecConf.end_of_line, "cr"))
+            ::SendMessage(curScintilla, SCI_SETEOLMODE,
+                    (WPARAM)SC_EOL_CR, 0);
+        else if (!strcmp(ecConf.end_of_line, "crlf"))
+            ::SendMessage(curScintilla, SCI_SETEOLMODE,
+                    (WPARAM)SC_EOL_CRLF, 0);
+    }
+
+    editorconfig_handle_destroy(eh);
+}
+
+void onReloadEditorConfig()
+{
+    loadConfig();
+}
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
@@ -61,6 +178,8 @@ void commandMenuInit()
     //            ShortcutKey *shortcut,          // optional. Define a shortcut to trigger this command
     //            bool check0nInit                // optional. Make this menu item be checked visually
     //            );
+    setCommand(0, TEXT("Reload EditorConfig for this file"),
+            onReloadEditorConfig, NULL, false);
 }
 
 //

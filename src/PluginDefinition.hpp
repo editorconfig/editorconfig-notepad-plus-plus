@@ -21,10 +21,27 @@
 #ifndef PLUGINDEFINITION_HPP
 #define PLUGINDEFINITION_HPP
 
+#include <string>
+#include <sstream>
+
+#include "editorconfig/editorconfig.h"
+
 //
 // All difinitions of plugin interface
 //
 #include "PluginInterface.hpp"
+
+// tstring and tstringstream class
+namespace std
+{
+#ifdef UNICODE
+    typedef wstring tstring;
+    typedef wstringstream tstringstream;
+#else
+    typedef string tstring;
+    typedef stringstream tstringstream;
+#endif
+};
 
 //-------------------------------------//
 //-- STEP 1. DEFINE YOUR PLUGIN NAME --//
@@ -63,6 +80,11 @@ void commandMenuInit();
 //Clean up your plugin commands allocation (if any)
 //
 void commandMenuCleanUp();
+
+//
+// load config files
+//
+void loadConfig();
 
 //
 // Function which sets your command 
