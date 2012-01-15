@@ -92,10 +92,4 @@ void loadConfig();
 bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false);
 
 
-//
-// Your plugin command functions
-//
-void hello();
-void helloDlg();
-
 #endif //PLUGINDEFINITION_HPP
