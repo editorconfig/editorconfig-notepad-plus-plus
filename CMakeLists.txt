@@ -21,6 +21,10 @@ cmake_minimum_required(VERSION 2.4.0)
 
 project(NppEditorConfig CXX)
 
+set (editorconfig_notepad_plus_plus_VERSION_MAJOR 0)
+set (editorconfig_notepad_plus_plus_VERSION_MINOR 1)
+set (editorconfig_notepad_plus_plus__VERSION_SUBMINOR 0)
+
 # set the EDITORCONFIG_CORE_PREFIX. Default is the default installation
 # directory of editorconfig
 if(WIN32)

@@ -55,11 +55,19 @@ set_source_files_properties(NppEditorConfig_HEADER_FILES
     PROPERTIES HEADER_FILE_ONLY TRUE)
 list(APPEND NppEditorConfig_SOURCE_FILES ${NppEditorConfig_HEADER_FILES})
 
+# version.rc, containing version number info
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/version.rc.in
+  ${CMAKE_CURRENT_BINARY_DIR}/version.rc
+  @ONLY)
+
 # add ansi target
 if(EDITORCONFIG_CORE_PREFIX)
     link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
 endif()
-add_library(NppEditorConfig_ansi SHARED ${NppEditorConfig_SOURCE_FILES})
+add_library(NppEditorConfig_ansi SHARED
+    ${NppEditorConfig_SOURCE_FILES}
+    ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 set_target_properties(NppEditorConfig_ansi PROPERTIES
     OUTPUT_NAME NppEditorConfig
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/ansi
@@ -71,7 +79,9 @@ target_link_libraries(NppEditorConfig_ansi editorconfig_static)
 if(EDITORCONFIG_CORE_PREFIX)
     link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
 endif()
-add_library(NppEditorConfig_unicode SHARED ${NppEditorConfig_SOURCE_FILES})
+add_library(NppEditorConfig_unicode SHARED
+    ${NppEditorConfig_SOURCE_FILES}
+    ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 set_target_properties(NppEditorConfig_unicode PROPERTIES
     OUTPUT_NAME NppEditorConfig
     COMPILE_DEFINITIONS UNICODE

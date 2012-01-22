@@ -1,0 +1,48 @@
+// this file is part of EditorConfig plugin for Notepad++
+// 
+// Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// 
+
+#define VER_FILEVERSION @editorconfig_notepad_plus_plus_VERSION_MAJOR@,@editorconfig_notepad_plus_plus_VERSION_MINOR@,@editorconfig_notepad_plus_plus__VERSION_SUBMINOR@,0
+#define VER_FILEVERSION_STR "@editorconfig_notepad_plus_plus_VERSION_MAJOR@.@editorconfig_notepad_plus_plus_VERSION_MINOR@.@editorconfig_notepad_plus_plus__VERSION_SUBMINOR@.0\0"
+
+#define VER_PRODUCTVERSION VER_FILEVERSION
+#define VER_PRODUCTVERSION_STR VER_FILEVERSION_STR
+
+1 VERSIONINFO
+    FILEVERSION VER_FILEVERSION
+    PRODUCTVERSION VER_PRODUCTVERSION
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "040904B0"
+        {
+            VALUE "CompanyName", "EditorConfig Team"
+            VALUE "FileDescription", "EditorConfig plugin for Notepad++"
+            VALUE "FileVersion", VER_FILEVERSION_STR
+            VALUE "InternalName", "NppEditorConfig"
+            VALUE "LegalCopyright", "Copyright (C) 2011-2012 EditorConfig Team <http://editorconfig.org>"
+            VALUE "OriginalFilename", "NppEditorConfig"
+            VALUE "ProductName", "EditorConfig plugin for Notepad++"
+            VALUE "ProductVersion", VER_PRODUCTVERSION_STR
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0409, 0x04B0
+    }
+}
