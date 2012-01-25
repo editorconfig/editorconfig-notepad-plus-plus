@@ -39,6 +39,15 @@ installed.
     of the Notepad++ directory to complete the installation.
 
 
+## Supported properties
+
+The EditorConfig Emacs plugin supports the following EditorConfig [properties][]:
+
+* indent_style
+* indent_size
+* tab_width
+* end_of_line
+* root (only used by EditorConfig core)
 
 
 [cmake]: http://www.cmake.org
@@ -47,3 +56,4 @@ installed.
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
 [Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
 [download]: https://github.com/editorconfig/editorconfig-notepad-plus-plus/downloads
+[properties]: http://editorconfig.org/#supported-properties
