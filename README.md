@@ -41,7 +41,8 @@ installed.
 
 ## Supported properties
 
-The EditorConfig Emacs plugin supports the following EditorConfig [properties][]:
+The EditorConfig Notepad++ plugin supports the following EditorConfig
+[properties][]:
 
 * indent_style
 * indent_size
