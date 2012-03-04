@@ -53,7 +53,7 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 
 [cmake]: http://www.cmake.org
 [EditorConfig]: http://editorconfig.org
-[EditorConfig core]: https://github.com/editorconfig/editorconfig
+[EditorConfig core]: https://github.com/editorconfig/editorconfig-core
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
 [Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
 [download]: https://github.com/editorconfig/editorconfig-notepad-plus-plus/downloads
