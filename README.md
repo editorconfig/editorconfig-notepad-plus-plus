@@ -4,6 +4,16 @@ This is an [EditorConfig][] plugin for Notepad++.
 
 ## Installation
 
+### Install from the Plugin Manager
+
+If you have [Notepad++ Plugin Manager][] installed (usually installed by
+default in Notepad++), you can install in this way.
+
+Launch Notepad++, click on the `Plugins` menu, then
+`Plugin Manager` -> `Show Plugin Manager`. In the `Available` tab, find
+`EditorConfig` in the list, check the checkbox and click on the `Install`
+button.
+
 ### Install from the Binary Package
 
 1.  Download the binary package from [the download section][download].
@@ -56,5 +66,6 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 [EditorConfig core]: https://github.com/editorconfig/editorconfig-core
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
 [Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
+[Notepad++ Plugin Manager]: http://www.brotherstone.co.uk/npp/pm/
 [download]: https://github.com/editorconfig/editorconfig-notepad-plus-plus/downloads
 [properties]: http://editorconfig.org/#supported-properties
