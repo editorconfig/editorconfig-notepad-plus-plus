@@ -16,7 +16,8 @@ button.
 
 ### Install from the Binary Package
 
-1.  Download the binary package from [the download section][download].
+1.  Download the binary package from
+    [the SourceForge downloads page][download].
 
 2.  Extract the compressed archive and copy the corresponding dll into your
     Notepad++ plugin directory(the unicode dll if your Notepad++ version is
@@ -67,5 +68,5 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
 [Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
 [Notepad++ Plugin Manager]: http://www.brotherstone.co.uk/npp/pm/
-[download]: https://github.com/editorconfig/editorconfig-notepad-plus-plus/downloads
+[download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
 [properties]: http://editorconfig.org/#supported-properties
