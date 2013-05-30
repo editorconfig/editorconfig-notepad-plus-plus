@@ -61,6 +61,11 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 * end_of_line
 * root (only used by EditorConfig core)
 
+## Bugs and Feature Requests
+
+Feel free to submit bugs, feature requests, and other issues to the main
+[EditorConfig issue tracker](https://github.com/editorconfig/editorconfig/issues).
+
 
 [cmake]: http://www.cmake.org
 [EditorConfig]: http://editorconfig.org
