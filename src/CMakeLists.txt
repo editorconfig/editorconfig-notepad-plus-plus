@@ -74,6 +74,7 @@ set_target_properties(NppEditorConfig_ansi PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
 target_link_libraries(NppEditorConfig_ansi editorconfig_static)
+target_link_libraries(NppEditorConfig_ansi Shlwapi)
 
 # add unicode target
 if(EDITORCONFIG_CORE_PREFIX)
@@ -89,4 +90,4 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
 target_link_libraries(NppEditorConfig_unicode editorconfig_static)
-
+target_link_libraries(NppEditorConfig_unicode Shlwapi)
