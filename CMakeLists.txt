@@ -38,7 +38,7 @@ endif()
 
 if(NOT EDITORCONFIG_CORE_PREFIX)
     set(EDITORCONFIG_CORE_PREFIX ${EDITORCONFIG_CORE_DEFAULT_PREFIX}
-        CACHE STRING "Choose the prefix of EditorConfig Core.")
+        CACHE STRING "Choose the prefix of EditorConfig C Core.")
 endif()
 
 add_subdirectory(src)
