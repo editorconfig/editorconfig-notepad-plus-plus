@@ -33,7 +33,7 @@ endif()
 
 # if the default path does not exist, set it to empty string
 if(NOT IS_DIRECTORY ${EDITORCONFIG_CORE_DEFAULT_PREFIX})
-    set(${EDITORCONFIG_CORE_DEFAULT_PREFIX "")
+    set(EDITORCONFIG_CORE_DEFAULT_PREFIX "")
 endif()
 
 if(NOT EDITORCONFIG_CORE_PREFIX)
