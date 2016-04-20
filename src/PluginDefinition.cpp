@@ -45,19 +45,15 @@ void pluginCleanUp()
 {
 }
 
-void loadConfig()
+//
+// Parse the EditorConfig file
+//
+static bool parseConfig(editorconfig_handle eh)
 {
 #ifdef UNICODE
     TCHAR fileNamet[MAX_PATH];
 #endif
     char  fileName[MAX_PATH];
-    HWND curScintilla;
-    int which;
-    int name_value_count;
-    int err_num;
-    editorconfig_handle eh;
-
-    eh = editorconfig_handle_init();
 
     // get the file name
     ::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH,
@@ -71,7 +67,8 @@ void loadConfig()
     wcstombs(fileName, fileNamet, MAX_PATH);
 #endif
 
-    /* start parsing */
+    // start parsing
+    int err_num;
     if ((err_num = editorconfig_parse(fileName, eh)) != 0 &&
             /* Ignore full path error, whose error code is
              * EDITORCONFIG_PARSE_NOT_FULL_PATH */
@@ -81,8 +78,22 @@ void loadConfig()
         ::MessageBox(NULL, err_msg.str().c_str(),
                 TEXT("EditorConfig"), MB_OK);
         editorconfig_handle_destroy(eh);
-        return;
+        return false;
     }
+    return true;
+}
+
+void loadConfig()
+{
+    HWND curScintilla;
+    int which;
+    int name_value_count;
+    editorconfig_handle eh;
+
+    // Parse the EditorConfig file
+    eh = editorconfig_handle_init();
+    if (!parseConfig(eh))
+        return;
 
     // Get the current scintilla
     which = -1;
@@ -165,6 +176,32 @@ void loadConfig()
         else if (!strcmp(ecConf.end_of_line, "crlf"))
             ::SendMessage(curScintilla, SCI_SETEOLMODE,
                     (WPARAM)SC_EOL_CRLF, 0);
+    }
+
+    editorconfig_handle_destroy(eh);
+}
+
+void onBeforeSave(HWND hWnd)
+{
+    editorconfig_handle eh = editorconfig_handle_init();
+
+    if (!parseConfig(eh))
+        return;
+
+    int name_value_count = editorconfig_handle_get_name_value_count(eh);
+
+    for (int i = 0; i < name_value_count; ++i) {
+        const char* name;
+        const char* value;
+
+        editorconfig_handle_get_name_value(eh, i, &name, &value);
+
+        if (strcmp(name, "trim_trailing_whitespace") == 0) {
+            if (strcmp(value, "true") == 0) {
+                SendMessage(hWnd, NPPM_MENUCOMMAND, 0, IDM_EDIT_TRIMTRAILING);
+            }
+            break;
+        }
     }
 
     editorconfig_handle_destroy(eh);
