@@ -1,0 +1,16 @@
+CMakeCache.txt
+*.vcxproj
+*.filters
+*.db
+*.opendb
+*.sdf
+*.sln
+*.suo
+*.rc
+*.cmake
+bin/
+lib/
+Win32/
+CMakeFiles/
+src/NppEditorConfig_unicode.dir/
+src/NppEditorConfig_ansi.dir/
