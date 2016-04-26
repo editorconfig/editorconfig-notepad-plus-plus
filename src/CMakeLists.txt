@@ -22,9 +22,7 @@ if(MSVC)
     foreach(flag_var
             CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
             CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-        if(${flag_var} MATCHES "/MD")
-            string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-        endif(${flag_var} MATCHES "/MD")
+        string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
     endforeach(flag_var)
 endif(MSVC)
 
@@ -62,9 +60,7 @@ configure_file(
   @ONLY)
 
 # add ansi target
-if(EDITORCONFIG_CORE_PREFIX)
-    link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
-endif()
+link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE_LIB_DIR}")
 add_library(NppEditorConfig_ansi SHARED
     ${NppEditorConfig_SOURCE_FILES}
     ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
@@ -75,11 +71,10 @@ set_target_properties(NppEditorConfig_ansi PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
 target_link_libraries(NppEditorConfig_ansi editorconfig_static)
 target_link_libraries(NppEditorConfig_ansi Shlwapi)
+target_link_libraries(NppEditorConfig_ansi pcre)
 
 # add unicode target
-if(EDITORCONFIG_CORE_PREFIX)
-    link_directories("${EDITORCONFIG_CORE_PREFIX}/lib")
-endif()
+link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE_LIB_DIR}")
 add_library(NppEditorConfig_unicode SHARED
     ${NppEditorConfig_SOURCE_FILES}
     ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
@@ -91,3 +86,4 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
 target_link_libraries(NppEditorConfig_unicode editorconfig_static)
 target_link_libraries(NppEditorConfig_unicode Shlwapi)
+target_link_libraries(NppEditorConfig_unicode pcre)

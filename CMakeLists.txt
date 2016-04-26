@@ -1,6 +1,6 @@
 # this file is part of EditorConfig plugin for Notepad++
 # 
-# Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
+# Copyright (C)2011-2016 EditorConfig Team <http://editorconfig.org>
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 # 
 
-cmake_minimum_required(VERSION 2.4.0)
+cmake_minimum_required(VERSION 3.5.0)
 
 project(NppEditorConfig CXX)
 
@@ -38,7 +38,11 @@ endif()
 
 if(NOT EDITORCONFIG_CORE_PREFIX)
     set(EDITORCONFIG_CORE_PREFIX ${EDITORCONFIG_CORE_DEFAULT_PREFIX}
-        CACHE STRING "Choose the prefix of EditorConfig C Core.")
+        CACHE PATH "Choose the prefix of EditorConfig C Core.")
+endif()
+
+if(NOT PCRE_LIB_DIR)
+    set(PCRE_LIB_DIR "" CACHE PATH "Choose the dir that contains pcre.lib.")
 endif()
 
 add_subdirectory(src)
