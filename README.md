@@ -59,6 +59,7 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 * indent_size
 * tab_width
 * end_of_line
+* trim_trailing_whitespace
 * root (only used by EditorConfig core)
 
 ## Bugs and Feature Requests

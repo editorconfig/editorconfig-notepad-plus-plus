@@ -72,6 +72,9 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
     case NPPN_BUFFERACTIVATED: // When new file opened, run set the conf
         loadConfig();
         break;
+    case NPPN_FILEBEFORESAVE:
+        onBeforeSave((HWND) notifyCode->nmhdr.hwndFrom);
+        break;
     default:
         break;
     }
