@@ -83,10 +83,20 @@ static bool parseConfig(editorconfig_handle eh)
     return true;
 }
 
+//
+// Get the current scintilla
+//
+static HWND getCurrentScintilla()
+{
+    int which = -1;
+    SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM) &which);
+    if (which == -1)
+        return NULL;
+    return((which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle);
+}
+
 void loadConfig()
 {
-    HWND curScintilla;
-    int which;
     int name_value_count;
     editorconfig_handle eh;
 
@@ -96,13 +106,9 @@ void loadConfig()
         return;
 
     // Get the current scintilla
-    which = -1;
-    ::SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0,
-            (LPARAM)&which);
-    if (which == -1)
+    HWND curScintilla = getCurrentScintilla();
+    if (curScintilla == NULL)
         return;
-    curScintilla = (which == 0) ? nppData._scintillaMainHandle :
-        nppData._scintillaSecondHandle;
 
     struct
     {
@@ -181,6 +187,75 @@ void loadConfig()
     editorconfig_handle_destroy(eh);
 }
 
+//
+// Is the char c a newline character?
+//
+static bool isNewline(char c)
+{
+    return c == '\n' || c == '\r';
+}
+
+//
+// insert the final newline or remove any remaining newlines
+//
+void insertFinalNewline(bool insert)
+{
+    HWND curScintilla = getCurrentScintilla();
+    if (curScintilla == NULL)
+        return;
+
+    // Get the last line number
+    int lastLine = SendMessage(curScintilla, SCI_GETLINECOUNT, 0, 0) - 1;
+
+    // Get the length of that last line
+    int length = SendMessage(curScintilla, SCI_LINELENGTH, lastLine, 0);
+
+    // Do we need to insert a final newline?
+    if (insert)
+    {
+        // If there is an empty last line, we're done
+        if (length == 0)
+            return;
+
+        // What type of EOL must be inserted?
+        char eolBuf[10];
+        eolBuf[0] = 0;
+        int eolMode = SendMessage(curScintilla, SCI_GETEOLMODE, 0, 0);
+        switch (eolMode)
+        {
+            case SC_EOL_CRLF:
+                strcpy(eolBuf, "\r\n");
+                break;
+            case SC_EOL_CR:
+                strcpy(eolBuf, "\r");
+                break;
+            case SC_EOL_LF:
+                strcpy(eolBuf, "\n");
+                break;
+        }
+
+        // Add the EOL at the end of the document
+        length  = strlen(eolBuf);
+        if (length != 0)
+            SendMessage(curScintilla, SCI_APPENDTEXT, length, (LPARAM) eolBuf);
+
+        return;
+    }
+
+    // Is there an non-empty last line, we're done
+    if (length != 0)
+        return;
+
+    // Find the last non-newline character
+    length = SendMessage(curScintilla, SCI_GETTEXTLENGTH, 0, 0);
+    int pos = length;
+    while (pos > 0 && isNewline((char) SendMessage(curScintilla, SCI_GETCHARAT, pos - 1, 0)))
+        pos--;
+
+    // Remove the final newline(s)
+    SendMessage(curScintilla, SCI_DELETERANGE, pos, length - pos);
+}
+
 void onBeforeSave(HWND hWnd)
 {
     editorconfig_handle eh = editorconfig_handle_init();
@@ -200,6 +275,14 @@ void onBeforeSave(HWND hWnd)
             if (strcmp(value, "true") == 0) {
                 SendMessage(hWnd, NPPM_MENUCOMMAND, 0, IDM_EDIT_TRIMTRAILING);
             }
+            break;
+        }
+
+        if (strcmp(name, "insert_final_newline") == 0) {
+            if (strcmp(value, "true") == 0)
+                insertFinalNewline(true);
+            if (strcmp(value, "false") == 0)
+                insertFinalNewline(false);
             break;
         }
     }
