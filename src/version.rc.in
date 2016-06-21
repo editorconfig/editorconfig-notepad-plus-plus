@@ -1,21 +1,24 @@
 // this file is part of EditorConfig plugin for Notepad++
-// 
-// Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
-// 
+//
+// Copyright (C)2011-2016 EditorConfig Team <http://editorconfig.org>
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
 // version 2 of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-// 
+//
+
+#include <windows.h>
+#include "Resource.hpp"
 
 #define VER_FILEVERSION @editorconfig_notepad_plus_plus_VERSION_MAJOR@,@editorconfig_notepad_plus_plus_VERSION_MINOR@,@editorconfig_notepad_plus_plus__VERSION_SUBMINOR@,0
 #define VER_FILEVERSION_STR "@editorconfig_notepad_plus_plus_VERSION_MAJOR@.@editorconfig_notepad_plus_plus_VERSION_MINOR@.@editorconfig_notepad_plus_plus__VERSION_SUBMINOR@.0\0"
@@ -35,7 +38,7 @@
             VALUE "FileDescription", "EditorConfig plugin for Notepad++"
             VALUE "FileVersion", VER_FILEVERSION_STR
             VALUE "InternalName", "NppEditorConfig"
-            VALUE "LegalCopyright", "Copyright (C) 2011-2012 EditorConfig Team <http://editorconfig.org>"
+            VALUE "LegalCopyright", "Copyright (C) 2011-2016 EditorConfig Team <http://editorconfig.org>"
             VALUE "OriginalFilename", "NppEditorConfig"
             VALUE "ProductName", "EditorConfig plugin for Notepad++"
             VALUE "ProductVersion", VER_PRODUCTVERSION_STR
@@ -45,4 +48,23 @@
     {
         VALUE "Translation", 0x0409, 0x04B0
     }
+}
+
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 224, 126
+STYLE DS_SHELLFONT | WS_BORDER | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 0, 0, 1
+{
+    GROUPBOX        "EditorConfig plug-in", IDC_STATIC, 10, 9, 201, 93, BS_CENTER
+    LTEXT           "Authors:", IDC_STATIC, 30, 23, 64, 8
+    LTEXT           "EditorConfig Team", IDC_STATIC, 100, 23, 106, 8
+    LTEXT           "Plugin version:", IDC_STATIC, 30, 38, 64, 8
+    LTEXT           VER_PRODUCTVERSION_STR, IDC_STATIC, 100, 38, 106, 8
+    LTEXT           "Core-C version:", IDC_STATIC, 30, 53, 64, 8
+    LTEXT           "", IDC_CORE_VERSION, 100, 53, 106, 8
+    LTEXT           "License:", IDC_STATIC, 30, 68, 64, 8
+    LTEXT           "GPL-2", IDC_STATIC, 100, 68, 106, 8
+    LTEXT           "Site:", IDC_STATIC, 30, 83, 64, 8
+    CONTROL         "<a href=""http://editorconfig.org/"">http://editorconfig.org/</a>", IDC_SYSLINK, "SysLink", NOT WS_TABSTOP, 99, 83, 106, 8
+    PUSHBUTTON      "Close", IDCANCEL, 86, 107, 50, 14
 }

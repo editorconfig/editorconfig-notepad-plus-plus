@@ -1,7 +1,7 @@
 //this file is part of EditorConfig plugin for Notepad++
 //
 //Copyright (C)2003 Don HO <donho@altern.org>
-//Copyright (C)2011 EditorConfig Team <http://editorconfig.org>
+//Copyright (C)2011-2016 EditorConfig Team <http://editorconfig.org>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -20,6 +20,7 @@
 
 #include "PluginDefinition.hpp"
 #include "menuCmdID.hpp"
+#include "DlgAbout.hpp"
 
 //
 // The plugin data that Notepad++ needs
@@ -32,10 +33,16 @@ FuncItem funcItem[nbFunc];
 NppData nppData;
 
 //
+// Handle to the Notepad++ instance
+//
+HINSTANCE hInst;
+
+//
 // Initialize your plugin data here
-// It will be called while plugin loading   
+// It will be called while plugin loading
 void pluginInit(HANDLE hModule)
 {
+    hInst = (HINSTANCE) hModule;
 }
 
 //
@@ -299,7 +306,6 @@ void onReloadEditorConfig()
 // You should fill your plugins commands here
 void commandMenuInit()
 {
-
     //--------------------------------------------//
     //-- STEP 3. CUSTOMIZE YOUR PLUGIN COMMANDS --//
     //--------------------------------------------//
@@ -312,6 +318,11 @@ void commandMenuInit()
     //            );
     setCommand(0, TEXT("Reload EditorConfig for this file"),
             onReloadEditorConfig, NULL, false);
+
+    // Separator
+    setCommand(1, TEXT(""), NULL, NULL, false);
+
+    setCommand(2, TEXT("About..."), showAboutDlg, NULL, false);
 }
 
 //
@@ -326,12 +337,9 @@ void commandMenuCleanUp()
 //
 // This function help you to initialize your plugin commands
 //
-bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit) 
+bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit)
 {
     if (index >= nbFunc)
-        return false;
-
-    if (!pFunc)
         return false;
 
     lstrcpy(funcItem[index]._itemName, cmdName);
@@ -342,3 +350,25 @@ bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey 
     return true;
 }
 
+//
+// Center the window, relative the NPP-window
+//
+void centerWindow(HWND hDlg)
+{
+    RECT rc;
+    GetClientRect(nppData._nppHandle, &rc);
+
+    POINT center;
+    int w = rc.right - rc.left;
+    int h = rc.bottom - rc.top;
+    center.x = rc.left + (w / 2);
+    center.y = rc.top + (h / 2);
+    ClientToScreen(nppData._nppHandle, &center);
+
+    RECT dlgRect;
+    GetClientRect(hDlg, &dlgRect);
+    int x = center.x - ((dlgRect.right - dlgRect.left) / 2);
+    int y = center.y - ((dlgRect.bottom - dlgRect.top) / 2);
+
+    SetWindowPos(hDlg, HWND_TOP, x, y, -1, -1, SWP_NOSIZE | SWP_SHOWWINDOW);
+}

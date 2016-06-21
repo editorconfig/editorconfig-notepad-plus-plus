@@ -1,5 +1,6 @@
 CMakeCache.txt
 *.vcxproj
+*.vcxproj.user
 *.filters
 *.db
 *.opendb

@@ -1,6 +1,6 @@
 # this file is part of EditorConfig plugin for Notepad++
 # 
-# Copyright (C)2011-2012 EditorConfig Team <http://editorconfig.org>
+# Copyright (C) 2011-2016 EditorConfig Team <http://editorconfig.org>
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -33,15 +33,18 @@ endif(MSVC)
 
 ## section: source files
 set(NppEditorConfig_SOURCE_FILES
+    ./DlgAbout.cpp
     ./NppPluginEditorConfig.cpp
     ./PluginDefinition.cpp)
 
 ## section: header files
 set(NppEditorConfig_HEADER_FILES
     ./menuCmdID.hpp
+    ./DlgAbout.hpp
     ./Notepad_plus_msgs.hpp
     ./PluginDefinition.hpp
     ./PluginInterface.hpp
+    ./Resource.hpp
     ./Scintilla.hpp)
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})

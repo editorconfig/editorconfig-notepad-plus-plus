@@ -1,7 +1,7 @@
 //this file is part of EditorConfig plugin for Notepad++
 //
 //Copyright (C)2003 Don HO <donho@altern.org>
-//Copyright (C)2011 EditorConfig Team <http://editorconfig.org>
+//Copyright (C)2011-2016 EditorConfig Team <http://editorconfig.org>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -56,8 +56,12 @@ const TCHAR NPP_PLUGIN_NAME[] = TEXT("EditorConfig");
 //
 // Here define the number of your plugin commands
 //
-const int nbFunc = 2;
+const int nbFunc = 3;
 
+
+struct NppData;
+extern HINSTANCE hInst;
+extern NppData nppData;
 
 //
 // Initialization of your plugin data
@@ -95,6 +99,11 @@ void onBeforeSave(HWND hWnd);
 // Function which sets your command
 //
 bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false);
+
+//
+// Center the window, relative the NPP-window
+//
+void centerWindow(HWND hDlg);
 
 
 #endif //PLUGINDEFINITION_HPP
