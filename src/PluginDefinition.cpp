@@ -57,22 +57,12 @@ void pluginCleanUp()
 //
 static bool parseConfig(editorconfig_handle eh)
 {
-#ifdef UNICODE
     TCHAR fileNamet[MAX_PATH];
-#endif
     char  fileName[MAX_PATH];
 
     // get the file name
-    ::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH,
-#ifdef UNICODE
-            (LPARAM)fileNamet
-#else
-            (LPARAM)fileName
-#endif
-            );
-#ifdef UNICODE
+    ::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH, (LPARAM)fileNamet);
     wcstombs(fileName, fileNamet, MAX_PATH);
-#endif
 
     // start parsing
     int err_num;

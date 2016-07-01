@@ -62,20 +62,6 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/version.rc
   @ONLY)
 
-# add ansi target
-link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE_LIB_DIR}")
-add_library(NppEditorConfig_ansi SHARED
-    ${NppEditorConfig_SOURCE_FILES}
-    ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
-set_target_properties(NppEditorConfig_ansi PROPERTIES
-    OUTPUT_NAME NppEditorConfig
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/ansi
-    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi
-    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/ansi)
-target_link_libraries(NppEditorConfig_ansi editorconfig_static)
-target_link_libraries(NppEditorConfig_ansi Shlwapi)
-target_link_libraries(NppEditorConfig_ansi pcre)
-
 # add unicode target
 link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE_LIB_DIR}")
 add_library(NppEditorConfig_unicode SHARED
