@@ -260,6 +260,15 @@ void onBeforeSave(HWND hWnd)
     if (!parseConfig(eh))
         return;
 
+    enum {
+        NPPEC_BOOLVAL_UNSPECIFIED = -1,
+        NPPEC_BOOLVAL_FALSE = 0,
+        NPPEC_BOOLVAL_TRUE = 1
+    };
+
+    int trim_trailing_whitespace = NPPEC_BOOLVAL_UNSPECIFIED;
+    int insert_final_newline = NPPEC_BOOLVAL_UNSPECIFIED;
+
     int name_value_count = editorconfig_handle_get_name_value_count(eh);
 
     for (int i = 0; i < name_value_count; ++i) {
@@ -268,20 +277,33 @@ void onBeforeSave(HWND hWnd)
 
         editorconfig_handle_get_name_value(eh, i, &name, &value);
 
-        if (strcmp(name, "trim_trailing_whitespace") == 0) {
+        if (trim_trailing_whitespace == NPPEC_BOOLVAL_UNSPECIFIED
+                && strcmp(name, "trim_trailing_whitespace") == 0) {
             if (strcmp(value, "true") == 0) {
-                SendMessage(hWnd, NPPM_MENUCOMMAND, 0, IDM_EDIT_TRIMTRAILING);
+                trim_trailing_whitespace = NPPEC_BOOLVAL_TRUE;
             }
-            break;
+            continue;
         }
 
-        if (strcmp(name, "insert_final_newline") == 0) {
-            if (strcmp(value, "true") == 0)
-                insertFinalNewline(true);
-            if (strcmp(value, "false") == 0)
-                insertFinalNewline(false);
-            break;
+        if (insert_final_newline == NPPEC_BOOLVAL_UNSPECIFIED
+                && strcmp(name, "insert_final_newline") == 0) {
+            if (strcmp(value, "true") == 0) {
+                insert_final_newline = NPPEC_BOOLVAL_TRUE;
+            } else if (strcmp(value, "false") == 0) {
+                insert_final_newline = NPPEC_BOOLVAL_FALSE;
+            }
+            continue;
         }
+    }
+
+    // Trailing whitespace needs to be trimmed before 'insert_final_newline' is
+    // applied.
+    if (trim_trailing_whitespace == NPPEC_BOOLVAL_TRUE) {
+        SendMessage(hWnd, NPPM_MENUCOMMAND, 0, IDM_EDIT_TRIMTRAILING);
+    }
+
+    if (insert_final_newline != NPPEC_BOOLVAL_UNSPECIFIED) {
+        insertFinalNewline(insert_final_newline == NPPEC_BOOLVAL_TRUE);
     }
 
     editorconfig_handle_destroy(eh);
