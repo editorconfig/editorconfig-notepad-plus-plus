@@ -313,6 +313,7 @@ void onReloadEditorConfig()
 {
     loadConfig();
 }
+
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
@@ -344,7 +345,6 @@ void commandMenuCleanUp()
 {
     // Don't forget to deallocate your shortcut here
 }
-
 
 //
 // This function help you to initialize your plugin commands

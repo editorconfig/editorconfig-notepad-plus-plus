@@ -17,7 +17,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
-
+ 
 #include "PluginDefinition.hpp"
 
 extern FuncItem funcItem[nbFunc];
@@ -46,7 +46,6 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 
     return TRUE;
 }
-
 
 extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 {
@@ -78,7 +77,6 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         break;
     }
 }
-
 
 // Here you can process the Npp Messages 
 // I will make the messages accessible little by little, according to the need of plugin development.
