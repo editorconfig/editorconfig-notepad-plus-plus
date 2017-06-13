@@ -89,9 +89,7 @@ extern "C" __declspec(dllexport) LRESULT messageProc(UINT message,
     return TRUE;
 }
 
-#ifdef UNICODE
 extern "C" __declspec(dllexport) BOOL isUnicode()
 {
     return TRUE;
 }
-#endif //UNICODE
