@@ -29,12 +29,15 @@ button.
 Before installation, you must have both [cmake][] and [Microsoft Visual Studio][] installed.
 
 1.  Download the [EditorConfig C core][] and follow the instructions in the README and INSTALL files to compile and install it with Microsoft Visual C++. Note that the EditorConfig C core must be built with the `MT` option. To build the x64 version of the plugin, the x64 version of EditorConfig C core is needed.
+
 2.  Download the [EditorConfig plugin for Notepad++][] and extract it.
+
 3.  Open `cmake-gui`, select the extracted folder as source code directory, and create a directory to build the binaries. Then click the `Configure` button. When asked for a generator, select a generator without suffix to build the x86 version, or a generator with `Win64` suffix to build the x64 version.
 
     Build options will appear after the configure process has finished. Set `EDITORCONFIG_CORE_PREFIX` to the install directory of EditorConfig C core, and `PCRE_LIB_DIR` to the directory which contains `pcre.lib` (x86 prebuild lib can be downloaded from https://sourceforge.net/projects/editorconfig/files/EditorConfig-C-Core/3rd-party/pcre-8.38/ . For newer version of pcre, or to build the x64 version, you can find the source at https://ftp.pcre.org/pub/pcre/ and build it using CMake).
 
-    Click the `Configure` button again, and then the `Generate` button and the `Open Project` button. Select `Release` build type and build the project.
+    Click the `Configure` button again, and then the `Generate` button and the `Open Project` button. This will open the generated project in Visual Studio. If you don't need the debug features you may change the solution configuration type to `Release` in the toolbar. Then build the project with VS.
+
 4.  If the build succeeded, you should have `bin\unicode\Release\NppEditorConfig.dll` in your build tree. Copy the dll to your the plugin directory of the Notepad++ directory to complete the installation.
 
 
