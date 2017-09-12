@@ -26,33 +26,19 @@ button.
 
 ### Install from Source
 
-Before installation, you must have both [cmake][] and [Microsoft Visual C++][]
-installed.
+Before installation, you must have both [cmake][] and [Microsoft Visual Studio][] installed.
 
-1.  Download the [EditorConfig C core][] and follow the instructions in the README
-    and INSTALL files to compile and install it with Microsoft Visual C++. Note that the
-    EditorConfig C core must be built with the `MT` option.
+1.  Download the [EditorConfig C core][] and follow the instructions in the README and INSTALL files to compile and install it with Microsoft Visual C++. Note that the EditorConfig C core must be built with the `MT` option. To build the x64 version of the plugin, the x64 version of EditorConfig C core is needed.
 
 2.  Download the [EditorConfig plugin for Notepad++][] and extract it.
 
-3.  Open your command line prompt, and use `cd` command to switch current
-    working directory to the root of the source tree of the Notepad++ plugin.
-    Use the following command to generate the project file:
+3.  Open `cmake-gui`, select the extracted folder as source code directory, and create a directory to build the binaries. Then click the `Configure` button. When asked for a generator, select a generator without suffix to build the x86 version, or a generator with `Win64` suffix to build the x64 version.
 
-        C:\path\to\editorconfig-notepad-plus-plus> cmake . -DEDITORCONFIG_CORE_PREFIX="$(The_path_to_EditorConfig_core_prefix)"
+    Build options will appear after the configure process has finished. Set `EDITORCONFIG_CORE_PREFIX` to the install directory of EditorConfig C core, and `PCRE_LIB_DIR` to the directory which contains `pcre.lib` (x86 prebuild lib can be downloaded from https://sourceforge.net/projects/editorconfig/files/EditorConfig-C-Core/3rd-party/pcre-8.38/ . For newer version of pcre, or to build the x64 version, you can find the source at https://ftp.pcre.org/pub/pcre/ and build it using CMake).
 
-    After this project file is built, run `cmake-gui .` to set the variable
-    `PCRE_LIB_DIR` to the directory which contains `pcre.lib` (can be downloaded
-    from
-    https://sourceforge.net/projects/editorconfig/files/EditorConfig-C-Core/3rd-party/pcre-8.38/?upload_just_completed=true
-    ). Double click on the project file and use Microsoft Visual C++ to build
-    it.
+    Click the `Configure` button again, and then the `Generate` button and the `Open Project` button. This will open the generated project in Visual Studio. If you don't need the debug features you may change the solution configuration type to `Release` in the toolbar. Then build the project with VS.
 
-4.  If the build succeeded, you should have `bin\unicode\NppEditorConfig.dll`
-    and `bin\ansi\NppEditorConfig.dll` in your build tree. Copy the
-    corresponding one (the unicode one if your Notepad++ is unicode version or
-    the ansi one if your Notepad++ is ansi version) to your the plugin directory
-    of the Notepad++ directory to complete the installation.
+4.  If the build succeeded, you should have `bin\unicode\Release\NppEditorConfig.dll` in your build tree. Copy the dll to your the plugin directory of the Notepad++ directory to complete the installation.
 
 
 ## Supported properties
@@ -74,11 +60,11 @@ Feel free to submit bugs, feature requests, and other issues to the main
 [EditorConfig issue tracker](https://github.com/editorconfig/editorconfig/issues).
 
 
-[cmake]: http://www.cmake.org
+[cmake]: https://www.cmake.org
 [EditorConfig]: http://editorconfig.org
 [EditorConfig C core]: https://github.com/editorconfig/editorconfig-core
 [EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
-[Microsoft Visual C++]: http://msdn2.microsoft.com/en-us/visualc/default.aspx
-[Notepad++ Plugin Manager]: http://www.brotherstone.co.uk/npp/pm/
+[Microsoft Visual Studio]: https://www.visualstudio.com/
+[Notepad++ Plugin Manager]: https://bruderste.in/npp/pm/
 [download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
 [properties]: http://editorconfig.org/#supported-properties
