@@ -2,6 +2,10 @@
 
 This is an [EditorConfig][] plugin for Notepad++.
 
+## Buildstatus
+[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/xuhdev/editorconfig-notepad-plus-plus?branch=master&svg=true)](https://ci.appveyor.com/project/xuhdev/editorconfig-notepad-plus-plus)
+[![GitHub release](https://img.shields.io/github/tag/editorconfig/editorconfig-notepad-plus-plus.svg)](https://github.com/editorconfig/editorconfig-notepad-plus-plus/tags)
+
 ## Installation
 
 ### Install from the Plugin Manager

@@ -1,0 +1,75 @@
+image:
+  - Visual Studio 2017
+
+environment:
+  matrix:
+  - CMAKE_GENERATOR: 'Visual Studio 15 2017 Win64'
+    CONFIG: Release
+    ARCH: x64
+  - CMAKE_GENERATOR: 'Visual Studio 15 2017'
+    CONFIG: Release
+    ARCH: x86
+
+install:
+  - set CMAKE_INSTALL_PREFIX="%APPVEYOR_BUILD_FOLDER%"\build
+  - set PCRE_DEST="%APPVEYOR_BUILD_FOLDER%"\pcre
+  - set CORE_DEST="%APPVEYOR_BUILD_FOLDER%"\editorconfig-core-c
+  - set NPP_DEST="%APPVEYOR_BUILD_FOLDER%"
+
+  - cmake --version
+  - cd "%APPVEYOR_BUILD_FOLDER%"
+  # Download PCRE sources
+  - curl -o pcre.zip https://ftp.pcre.org/pub/pcre/pcre-8.41.zip
+  - 7z x -y pcre.zip > nul
+  - rename pcre-8.41 pcre
+  # Build and install PCRE
+  - cd %PCRE_DEST%
+  - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DPCRE_STATIC_RUNTIME="ON" -DBUILD_SHARED_LIBS="OFF" -DPCRE_BUILD_PCRECPP=OFF -DPCRE_BUILD_PCREGREP=OFF -DPCRE_BUILD_TESTS=OFF -DPCRE_SUPPORT_UTF=ON "%PCRE_DEST%"
+  - cmake --build %PCRE_DEST% --target install -- /p:Configuration=%CONFIG%
+
+  # Download editorconfig-core-c
+  - cd "%APPVEYOR_BUILD_FOLDER%"
+  - curl -L -o eccc.zip https://github.com/editorconfig/editorconfig-core-c/archive/v0.12.1.zip
+  - 7z x -y eccc.zip > nul
+  - rename editorconfig-core-c-0.12.1 editorconfig-core-c
+  # Build and install editorconfig-core-c
+  - cd %CORE_DEST%
+  - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DMSVC_MD="OFF" -DPCRE_STATIC="ON" "%CORE_DEST%"
+  - cmake --build %CORE_DEST% --target install -- /p:Configuration=%CONFIG%
+
+build_script:
+  # Build and install editorconfig-notepad-plus-plus
+  - cd %NPP_DEST%
+  - cmake -G "%CMAKE_GENERATOR%" -DEDITORCONFIG_CORE_PREFIX="%CMAKE_INSTALL_PREFIX%" "%NPP_DEST%"
+  - cmake --build %NPP_DEST% -- /p:Configuration=%CONFIG%
+
+after_build:
+  - cd "%APPVEYOR_BUILD_FOLDER%"
+  - ps: >-
+        Push-AppveyorArtifact "bin\unicode\$env:CONFIG\NppEditorConfig.dll" -FileName NppEditorConfig.dll
+
+        if ($($env:APPVEYOR_REPO_TAG) -eq "true") {
+            if($env:ARCH -eq "x64"){
+                $ZipFileName = "NppEditorConfig_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
+                7z a $ZipFileName $env:APPVEYOR_BUILD_FOLDER\bin\unicode\$env:CONFIG\NppEditorConfig.dll
+            }
+                if($env:ARCH -eq "x86"){
+                $ZipFileName = "NppEditorConfig_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
+                7z a $ZipFileName $env:APPVEYOR_BUILD_FOLDER\bin\unicode\$env:CONFIG\NppEditorConfig.dll
+            }
+        }
+
+artifacts:
+  - path: NppEditorConfig_*.zip
+    name: releases
+
+deploy:
+    provider: GitHub
+    auth_token:
+        secure: !!TODO, see https://www.appveyor.com/docs/deployment/github/#provider-settings!!
+    artifact: releases
+    draft: false
+    prerelease: false
+    force_update: true
+    on:
+        appveyor_repo_tag: true
