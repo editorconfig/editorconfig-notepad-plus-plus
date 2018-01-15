@@ -92,6 +92,19 @@ static HWND getCurrentScintilla()
     return((which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle);
 }
 
+//
+// Set the syntax highlighting to "INI" for .editorconfig files
+//
+void setSyntaxFromFilename()
+{
+    // Retrieve the filename
+    WCHAR szFilename[_MAX_PATH];
+    SendMessage(g_nppData._nppHandle, NPPM_GETFILENAME, _MAX_PATH, (LPARAM) szFilename);
+
+    if (wcscmp(szFilename, L".editorconfig") == 0)
+        SendMessage(nppData._nppHandle, NPPM_SETCURRENTLANGTYPE, 0, L_INI);
+}
+
 void loadConfig()
 {
     int name_value_count;

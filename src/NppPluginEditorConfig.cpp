@@ -68,6 +68,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 {
     switch (notifyCode->nmhdr.code) {
     case NPPN_BUFFERACTIVATED: // When new file opened, run set the conf
+        setSyntaxFromFilename();
         loadConfig();
         break;
     case NPPN_FILEBEFORESAVE:
