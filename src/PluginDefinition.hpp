@@ -85,6 +85,11 @@ void commandMenuInit();
 void commandMenuCleanUp();
 
 //
+// Set the syntax highlighting to "INI" for .editorconfig files
+//
+void setSyntaxFromFilename();
+
+//
 // load config files
 //
 void loadConfig();
