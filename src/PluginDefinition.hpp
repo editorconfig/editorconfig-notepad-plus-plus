@@ -55,7 +55,7 @@ const TCHAR NPP_PLUGIN_NAME[] = TEXT("EditorConfig");
 //
 // Here define the number of your plugin commands
 //
-const int nbFunc = 3;
+const int nbFunc = 4;
 
 
 struct NppData;

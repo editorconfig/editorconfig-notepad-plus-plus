@@ -314,6 +314,33 @@ void onReloadEditorConfig()
     loadConfig();
 }
 
+void showEditorConfigSettings()
+{
+    int name_value_count;
+    editorconfig_handle eh;
+
+    // Parse the EditorConfig file
+    eh = editorconfig_handle_init();
+    if (!parseConfig(eh))
+        return;
+
+    std::tstringstream settings;
+    settings << "Current EditorConfig settings:" << std::endl << std::endl;
+
+    // get the settings
+    name_value_count = editorconfig_handle_get_name_value_count(eh);
+
+    for (int i = 0; i < name_value_count; ++i) {
+        const char* name;
+        const char* value;
+
+        editorconfig_handle_get_name_value(eh, i, &name, &value);
+        settings << name << '=' << value << std::endl;
+    }
+
+    MessageBox(NULL, settings.str().c_str(), TEXT("EditorConfig"), MB_OK);
+}
+
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
@@ -331,11 +358,13 @@ void commandMenuInit()
     //            );
     setCommand(0, TEXT("Reload EditorConfig for this file"),
             onReloadEditorConfig, NULL, false);
+    setCommand(1, TEXT("Show EditorConfig settings for this file"),
+        showEditorConfigSettings, NULL, false);
 
     // Separator
-    setCommand(1, TEXT(""), NULL, NULL, false);
+    setCommand(2, TEXT(""), NULL, NULL, false);
 
-    setCommand(2, TEXT("About..."), showAboutDlg, NULL, false);
+    setCommand(3, TEXT("About..."), showAboutDlg, NULL, false);
 }
 
 //
