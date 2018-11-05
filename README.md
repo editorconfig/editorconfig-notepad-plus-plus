@@ -60,8 +60,8 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 
 ## Bugs and Feature Requests
 
-Feel free to submit bugs, feature requests, and other issues to the main
-[EditorConfig issue tracker](https://github.com/editorconfig/editorconfig/issues).
+Feel free to submit bugs, feature requests, and other issues to the
+[issue tracker](https://github.com/editorconfig/editorconfig-notepad-plus-plus/issues).
 
 
 [cmake]: https://www.cmake.org
