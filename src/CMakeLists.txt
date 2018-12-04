@@ -1,21 +1,21 @@
 # this file is part of EditorConfig plugin for Notepad++
-# 
+#
 # Copyright (C) 2011-2016 EditorConfig Team <http://editorconfig.org>
-# 
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either
 # version 2 of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-# 
+#
 
 # replace all /MD with /MT for msvc
 if(MSVC)
@@ -63,7 +63,7 @@ configure_file(
   @ONLY)
 
 # add unicode target
-link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE_LIB_DIR}")
+link_directories("${EDITORCONFIG_CORE_PREFIX}/lib" "${PCRE2_LIB_DIR}")
 add_library(NppEditorConfig_unicode SHARED
     ${NppEditorConfig_SOURCE_FILES}
     ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
@@ -75,4 +75,4 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
 target_link_libraries(NppEditorConfig_unicode editorconfig_static)
 target_link_libraries(NppEditorConfig_unicode Shlwapi)
-target_link_libraries(NppEditorConfig_unicode pcre)
+target_link_libraries(NppEditorConfig_unicode pcre2-8)
