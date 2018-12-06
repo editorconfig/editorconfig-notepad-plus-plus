@@ -2,6 +2,8 @@ image:
   - Visual Studio 2017
 
 environment:
+  PCRE2_VERSION: 10.32
+  EDITORCONFIG_VERSION: 0.12.3
   matrix:
   - CMAKE_GENERATOR: 'Visual Studio 15 2017 Win64'
     CONFIG: Release
@@ -19,9 +21,9 @@ install:
   - cmake --version
   - cd "%APPVEYOR_BUILD_FOLDER%"
   # Download PCRE sources
-  - curl -o pcre.zip https://ftp.pcre.org/pub/pcre/pcre2-10.32.zip
+  - curl -o pcre.zip https://ftp.pcre.org/pub/pcre/pcre2-%PCRE2_VERSION%.zip
   - 7z x -y pcre.zip > nul
-  - rename pcre2-10.32 pcre2
+  - rename pcre2-%PCRE2_VERSION% pcre2
   # Build and install PCRE
   - cd %PCRE_DEST%
   - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DPCRE2_STATIC_RUNTIME="ON" -DPCRE2_BUILD_PCRE2GREP=OFF -DPCRE2_BUILD_TESTS=OFF "%PCRE_DEST%"
@@ -29,9 +31,9 @@ install:
 
   # Download editorconfig-core-c
   - cd "%APPVEYOR_BUILD_FOLDER%"
-  - curl -L -o eccc.zip https://github.com/editorconfig/editorconfig-core-c/archive/v0.12.3.zip
+  - curl -L -o eccc.zip https://github.com/editorconfig/editorconfig-core-c/archive/v%EDITORCONFIG_VERSION%.zip
   - 7z x -y eccc.zip > nul
-  - rename editorconfig-core-c-0.12.3 editorconfig-core-c
+  - rename editorconfig-core-c-%EDITORCONFIG_VERSION% editorconfig-core-c
   # Build and install editorconfig-core-c
   - cd %CORE_DEST%
   - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DPCRE2_STATIC="ON" "%CORE_DEST%"
