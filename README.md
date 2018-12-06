@@ -30,20 +30,69 @@ button.
 
 ### Install from Source
 
-Before installation, you must have both [cmake][] and [Microsoft Visual Studio][] installed.
+Before installation, you must have [Microsoft PowerShell][PowerShell] 3 or higher, [cmake][] 3.5.0 or higher and [Microsoft Visual Studio][] (2013, 2015 or 2017) installed.
 
-1.  Download the [EditorConfig C core][] and follow the instructions in the README and INSTALL files to compile and install it with Microsoft Visual C++. Note that the EditorConfig C core must be built with the `MT` option. To build the x64 version of the plugin, the x64 version of EditorConfig C core is needed.
+#### Prepare code
 
-2.  Download the [EditorConfig plugin for Notepad++][] and extract it.
+Clone the [EditorConfig plugin for Notepad++][] sources or download and extract it.
 
-3.  Open `cmake-gui`, select the extracted folder as source code directory, and create a directory to build the binaries. Then click the `Configure` button. When asked for a generator, select a generator without suffix to build the x86 version, or a generator with `Win64` suffix to build the x64 version.
+#### Download dependencies
+To download [EditorConfig C core][] and [PRCE2][pcre] use the `init.ps1` script.
 
-    Build options will appear after the configure process has finished. Set `EDITORCONFIG_CORE_PREFIX` to the install directory of EditorConfig C core, and `PCRE_LIB_DIR` to the directory which contains `pcre.lib` (x86 prebuild lib can be downloaded from https://sourceforge.net/projects/editorconfig/files/EditorConfig-C-Core/3rd-party/pcre-8.38/ . For newer version of pcre, or to build the x64 version, you can find the source at https://ftp.pcre.org/pub/pcre/ and build it using CMake).
+```powershell
+~> ./init.ps1 [-prce 10.32] [-edc 0.12.3]
+```
 
-    Click the `Configure` button again, and then the `Generate` button and the `Open Project` button. This will open the generated project in Visual Studio. If you don't need the debug features you may change the solution configuration type to `Release` in the toolbar. Then build the project with VS.
+Arguments:
 
-4.  If the build succeeded, you should have `bin\unicode\Release\NppEditorConfig.dll` in your build tree. Copy the dll to your the plugin directory of the Notepad++ directory to complete the installation.
+    - pcre Optional, pcre2 version to download.
+    - edc  Optional, editorconfig core version to download.
 
+#### Build all
+To build all in one step use the ` -proj all`, `-init` and `-install` arguments with the `build.ps1` script at the same time.
+You will find the `NppEditorConfig.dll` in the `bin/x64/` folder.
+
+```powershell
+~> ./build.ps1 -proj all -init -install
+```
+
+The `-init` argument will generate the required cmake build files for Visual Studio. This is required after initial checkout or `CMakeLists.txt` changes.
+The `-install` argument will put the binaries to a location (`bin/$(ARCH)/build`) that the project can find and link the libraries.
+
+
+For the other arguments please see below.
+
+```powershell
+~> ./build.ps1 [-proj all | core | pcre2, npp] [-init] [-install] [-vsver 15 | 14 | 12] [-arch x64 | x86] [-config Release | Debug]
+```
+
+Arguments:
+
+    -proj Project to build.
+    -init Optional; (Re)Generate cmake build files, required first time or on `CMakeLists.txt` changes.
+    -install Optional; Install to `bin/$(ARCH)/build` folder.
+    -vsver Optional; Visual Studio version (major version number) to use.
+    -arch Optional; Architecture to build for.
+    -config Optional; Debug or release build.
+
+
+#### Build pcre2 library
+
+```powershell
+~> ./build.ps1 -proj pcre2 -init -install
+```
+
+#### Build editorconfig core library
+
+```powershell
+~> ./build.ps1 -proj core -init -install
+```
+
+#### Build editorconfig notepad++ plugin
+
+```powershell
+~> ./build.ps1 -proj npp -init -install
+```
 
 ## Supported properties
 
@@ -71,4 +120,6 @@ Feel free to submit bugs, feature requests, and other issues to the
 [Microsoft Visual Studio]: https://www.visualstudio.com/
 [Notepad++ Plugin Manager]: https://bruderste.in/npp/pm/
 [download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
+[pcre]: https://ftp.pcre.org/pub/pcre
+[PowerShell]: https://docs.microsoft.com/en-us/powershell
 [properties]: http://editorconfig.org/#supported-properties
