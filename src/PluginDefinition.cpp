@@ -357,7 +357,7 @@ void showEditorConfigSettings()
         const char* value;
 
         editorconfig_handle_get_name_value(eh, i, &name, &value);
-        settings << name << '=' << value << std::endl;
+        settings << name << " = " << value << std::endl;
     }
 
     MessageBox(NULL, settings.str().c_str(), TEXT("EditorConfig"), MB_OK);
