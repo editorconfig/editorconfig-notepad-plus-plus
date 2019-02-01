@@ -309,6 +309,12 @@ void onBeforeSave(HWND hWnd)
         }
     }
 
+    // Save the folding behavior and set it to 0 to keep folds from opening
+    // when modifying the file.
+    HWND curScintilla = getCurrentScintilla();
+    int automatic_fold = SendMessage(curScintilla, SCI_GETAUTOMATICFOLD, 0, 0);
+    SendMessage(curScintilla, SCI_SETAUTOMATICFOLD, 0, 0);
+
     // Trailing whitespace needs to be trimmed before 'insert_final_newline' is
     // applied.
     if (trim_trailing_whitespace == NPPEC_BOOLVAL_TRUE) {
@@ -318,6 +324,9 @@ void onBeforeSave(HWND hWnd)
     if (insert_final_newline != NPPEC_BOOLVAL_UNSPECIFIED) {
         insertFinalNewline(insert_final_newline == NPPEC_BOOLVAL_TRUE);
     }
+
+    // Restore the folding behavior
+    SendMessage(curScintilla, SCI_SETAUTOMATICFOLD, automatic_fold, 0);
 
     editorconfig_handle_destroy(eh);
 }
