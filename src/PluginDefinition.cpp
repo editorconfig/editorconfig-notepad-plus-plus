@@ -281,9 +281,9 @@ void onBeforeSave(HWND hWnd)
 
     int trim_trailing_whitespace = NPPEC_BOOLVAL_UNSPECIFIED;
     int insert_final_newline = NPPEC_BOOLVAL_UNSPECIFIED;
+    int end_of_line = 0;
 
     int name_value_count = editorconfig_handle_get_name_value_count(eh);
-
     for (int i = 0; i < name_value_count; ++i) {
         const char* name;
         const char* value;
@@ -307,6 +307,17 @@ void onBeforeSave(HWND hWnd)
             }
             continue;
         }
+
+        // Need to convert the end of lines?
+        if (strcmp(name, "end_of_line") == 0) {
+            if (strcmp(value, "lf") == 0)
+                end_of_line = IDM_FORMAT_TOUNIX;
+            else if (strcmp(value, "crlf") == 0)
+                end_of_line = IDM_FORMAT_TODOS;
+            else if (strcmp(value, "cr") == 0)
+                end_of_line = IDM_FORMAT_TOMAC;
+            continue;
+        }
     }
 
     // Save the folding behavior and set it to 0 to keep folds from opening
@@ -323,6 +334,10 @@ void onBeforeSave(HWND hWnd)
 
     if (insert_final_newline != NPPEC_BOOLVAL_UNSPECIFIED) {
         insertFinalNewline(insert_final_newline == NPPEC_BOOLVAL_TRUE);
+    }
+
+    if (end_of_line != 0) {
+        SendMessage(hWnd, NPPM_MENUCOMMAND, 0, end_of_line);
     }
 
     // Restore the folding behavior
