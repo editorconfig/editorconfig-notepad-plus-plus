@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-Version 0.4.0 (2019-MM-DD)
+Version 0.4.0 (2019-02-21)
 --------------------------
 
 * Offer x64 build of the plugin [#9](https://github.com/editorconfig/editorconfig-notepad-plus-plus/issues/9)
