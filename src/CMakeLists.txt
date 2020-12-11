@@ -75,4 +75,6 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/unicode)
 target_link_libraries(NppEditorConfig_unicode editorconfig_static)
 target_link_libraries(NppEditorConfig_unicode Shlwapi)
-target_link_libraries(NppEditorConfig_unicode pcre2-8)
+target_link_libraries(NppEditorConfig_unicode
+                      debug pcre2-8d
+                      optimized pcre2-8)

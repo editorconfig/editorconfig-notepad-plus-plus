@@ -1,0 +1,49 @@
+name: CI_build
+
+on: [push, pull_request]
+
+jobs:
+  build_windows:
+
+    runs-on: windows-2022
+    strategy:
+      max-parallel: 6
+      matrix:
+        build_configuration: [Release, Debug]
+        build_platform: [x64, arm64, x86]
+        build_vsver: [17]
+        PCRE2_VERSION: [10.37]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Download PCRE2 sources
+      run: ./init.ps1 -pcre "${{ matrix.PCRE2_VERSION }}"
+
+    - name: Build and install PCRE2
+      run: ./build.ps1 -proj pcre2 -config ${{ matrix.build_configuration }} -arch ${{ matrix.build_platform }} -vsver ${{ matrix.build_vsver }} -init -install
+
+    - name: Build and install editorconfig-core-c
+      run: ./build.ps1 -proj core -config ${{ matrix.build_configuration }} -arch ${{ matrix.build_platform }} -vsver ${{ matrix.build_vsver }} -init -install
+
+    - name: Build and install editorconfig plugin
+      run: ./build.ps1 -proj npp -config ${{ matrix.build_configuration }} -arch ${{ matrix.build_platform }} -vsver ${{ matrix.build_vsver }} -init -install
+
+    - uses: olegtarasov/get-tag@v2.1.1
+      id: tagName
+
+    - name: Archive artifacts
+      if: matrix.build_configuration == 'Release'
+      uses: actions/upload-artifact@v3
+      with:
+          name: NppEditorConfig-${{ steps.tagName.outputs.tag }}-${{ matrix.build_platform }}
+          path: bin\${{ matrix.build_platform }}\NppEditorConfig.dll
+
+
+    - name: Release on tagging
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/') && matrix.build_configuration == 'Release'
+      with:
+          files: NppEditorConfig-${{ steps.tagName.outputs.tag }}-${{ matrix.build_platform }}
