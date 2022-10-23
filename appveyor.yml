@@ -1,5 +1,5 @@
 image:
-  - Visual Studio 2017
+  - Visual Studio 2022
 
 only_commits:
   files:
@@ -9,13 +9,14 @@ only_commits:
     - '*.ps1'
 
 environment:
-  PCRE2_VERSION: 10.32
-  EDITORCONFIG_VERSION: 0.12.3
+  PCRE2_VERSION: 10.37
+  EDITORCONFIG_VERSION: 0.12.5
   CONFIG: Release
-  VSVER: 15
+  VSVER: 17
   matrix:
   - ARCH: x64
   - ARCH: x86
+  - ARCH: arm64
 
 install:
   - cmake --version

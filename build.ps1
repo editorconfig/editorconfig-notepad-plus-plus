@@ -9,11 +9,11 @@ param(
     [ValidateSet("Debug", "Release")]
     [string] $config = "Release",
 
-    [ValidateSet("x86", "x64")]
+    [ValidateSet("x86", "x64", "arm64")]
     [string] $arch = "x64",
 
 
-    [ValidateSet("15","14","12")]
+    [ValidateSet("17","16","15","14")]
     [int] $vsver = 15
 )
 
@@ -61,6 +61,12 @@ if ($init) {
     $gen = "Visual Studio "
 
     switch ($vsver) {
+        17 {
+            $gen += "17 2022"
+        }
+        16 {
+            $gen += "16 2019"
+        }
         15 {
             $gen += "15 2017"
         }
@@ -75,8 +81,15 @@ if ($init) {
         }
     }
 
-    if ($arch -eq "x64") {
-        $gen += " Win64"
+    $cmake_arch=""
+    if($arch -eq "x64"){
+        $cmake_arch += "x64"
+    }
+    elseif($arch -eq "x86"){
+        $cmake_arch += "Win32"
+    }
+    elseif($arch -eq "arm64"){
+        $cmake_arch += "ARM64"
     }
 
     New-Item $dest\$arch\$proj -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
@@ -84,19 +97,19 @@ if ($init) {
     try {
         switch ($proj) {
             pcre2 {
-                exec { cmake -G "$gen" -DCMAKE_INSTALL_PREFIX="$PREFIX" `
+                exec { cmake -G "$gen" -A $cmake_arch -DCMAKE_INSTALL_PREFIX="$PREFIX" `
                         -DPCRE2_STATIC_RUNTIME=ON `
                         -DPCRE2_BUILD_PCRE2GREP=OFF `
                         -DPCRE2_BUILD_TESTS=OFF `
                         "../../pcre2" }
             }
             core {
-                exec { cmake -G "$gen" -DCMAKE_INSTALL_PREFIX="$PREFIX" `
+                exec { cmake -G "$gen" -A $cmake_arch -DCMAKE_INSTALL_PREFIX="$PREFIX" `
                         -DPCRE2_STATIC=ON `
                         "../../editorconfig-core-c" }
             }
             npp {
-                exec { cmake -G "$gen" -DEDITORCONFIG_CORE_PREFIX="$(Resolve-Path $PREFIX)" "../../../." }
+                exec { cmake -G "$gen" -A $cmake_arch -DEDITORCONFIG_CORE_PREFIX="$(Resolve-Path $PREFIX)" "../../../." }
             }
         }
     }
