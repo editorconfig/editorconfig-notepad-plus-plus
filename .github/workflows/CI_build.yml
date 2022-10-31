@@ -31,7 +31,7 @@ jobs:
     - name: Build and install editorconfig plugin
       run: ./build.ps1 -proj npp -config ${{ matrix.build_configuration }} -arch ${{ matrix.build_platform }} -vsver ${{ matrix.build_vsver }} -init -install
 
-    - uses: olegtarasov/get-tag@v2.1.1
+    - uses: olegtarasov/get-tag@v2.1.2
       id: tagName
 
     - name: Archive artifacts
