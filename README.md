@@ -105,6 +105,7 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 * end_of_line
 * trim_trailing_whitespace
 * insert_final_newline
+* charset
 * root (only used by EditorConfig core)
 
 ## Bugs and Feature Requests
