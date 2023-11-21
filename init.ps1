@@ -19,7 +19,7 @@ $url = "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$($pcre)/p
 $output = "$dest\pcre-$($pcre).zip"
 
 "Downloading pcre2 v$pcre sources" | Write-Host -ForegroundColor DarkGreen
-Start-BitsTransfer -Source $url -Destination $output
+Start-BitsTransfer -Source $url -Destination $output -Dynamic
 
 "Extracting pcre2 v$pcre sources" | Write-Host -ForegroundColor DarkGreen
 Expand-Archive -Path $output -DestinationPath $dest
@@ -33,7 +33,7 @@ $url = "https://github.com/editorconfig/editorconfig-core-c/archive/v$($edc).zip
 $output = "$dest\editorconfig-core-c-$($edc).zip"
 
 "Downloading editorconfig-core-c v$edc sources" | Write-Host -ForegroundColor DarkGreen
-Start-BitsTransfer -Source $url -Destination $output
+Start-BitsTransfer -Source $url -Destination $output -Dynamic
 
 "Extracting editorconfig-core-c v$edc sources" | Write-Host -ForegroundColor DarkGreen
 Expand-Archive -Path $output -DestinationPath $dest
