@@ -282,6 +282,7 @@ void onBeforeSave(HWND hWnd)
     int trim_trailing_whitespace = NPPEC_BOOLVAL_UNSPECIFIED;
     int insert_final_newline = NPPEC_BOOLVAL_UNSPECIFIED;
     int end_of_line = 0;
+    int charset = 0;
 
     int name_value_count = editorconfig_handle_get_name_value_count(eh);
     for (int i = 0; i < name_value_count; ++i) {
@@ -318,6 +319,22 @@ void onBeforeSave(HWND hWnd)
                 end_of_line = IDM_FORMAT_TOMAC;
             continue;
         }
+
+        // Need to convert the charset of the document?
+        if (strcmp(name, "charset") == 0)
+        {
+            if (strcmp(value, "latin1") == 0)
+                charset = IDM_FORMAT_CONV2_ANSI;
+            else if (strcmp(value, "utf-8") == 0)
+                charset = IDM_FORMAT_CONV2_AS_UTF_8;
+            else if (strcmp(value, "utf-8-bom") == 0)
+                charset = IDM_FORMAT_CONV2_UTF_8;
+            else if (strcmp(value, "utf-16be") == 0)
+                charset = IDM_FORMAT_CONV2_UTF_16BE;
+            else if (strcmp(value, "utf-16le") == 0)
+                charset = IDM_FORMAT_CONV2_UTF_16LE;
+            continue;
+        }
     }
 
     // Save the folding behavior and set it to 0 to keep folds from opening
@@ -338,6 +355,10 @@ void onBeforeSave(HWND hWnd)
 
     if (end_of_line != 0) {
         SendMessage(hWnd, NPPM_MENUCOMMAND, 0, end_of_line);
+    }
+
+    if (charset != 0) {
+        SendMessage(hWnd, NPPM_MENUCOMMAND, 0, charset);
     }
 
     // Restore the folding behavior
