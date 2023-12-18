@@ -36,7 +36,7 @@ jobs:
 
     - name: Archive artifacts
       if: matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: NppEditorConfig-${{ steps.tagName.outputs.tag }}-${{ matrix.build_platform }}
           path: bin\${{ matrix.build_platform }}\NppEditorConfig.dll
