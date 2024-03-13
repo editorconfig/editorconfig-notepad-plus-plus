@@ -43,7 +43,7 @@ jobs:
 
 
     - name: Release on tagging
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/') && matrix.build_configuration == 'Release'
       with:
           files: NppEditorConfig-${{ steps.tagName.outputs.tag }}-${{ matrix.build_platform }}
