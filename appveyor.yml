@@ -9,8 +9,8 @@ only_commits:
     - '*.ps1'
 
 environment:
-  PCRE2_VERSION: 10.37
-  EDITORCONFIG_VERSION: 0.12.5
+  PCRE2_VERSION: 10.43
+  EDITORCONFIG_VERSION: 0.12.7
   CONFIG: Release
   VSVER: 17
   matrix:

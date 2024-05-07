@@ -5,14 +5,14 @@ on: [push, pull_request]
 jobs:
   build_windows:
 
-    runs-on: windows-2022
+    runs-on: windows-latest
     strategy:
-      max-parallel: 6
+      fail-fast: false
       matrix:
         build_configuration: [Release, Debug]
         build_platform: [x64, arm64, x86]
         build_vsver: [17]
-        PCRE2_VERSION: [10.37]
+        PCRE2_VERSION: [10.43]
 
     steps:
     - uses: actions/checkout@v4
