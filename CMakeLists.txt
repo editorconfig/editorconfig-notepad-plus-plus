@@ -17,7 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.16.3)
 
 project(NppEditorConfig CXX)
 

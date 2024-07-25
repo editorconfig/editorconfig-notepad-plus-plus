@@ -76,5 +76,5 @@ set_target_properties(NppEditorConfig_unicode PROPERTIES
 target_link_libraries(NppEditorConfig_unicode editorconfig_static)
 target_link_libraries(NppEditorConfig_unicode Shlwapi)
 target_link_libraries(NppEditorConfig_unicode
-                      debug pcre2-8d
-                      optimized pcre2-8)
+                      debug pcre2-8-staticd
+                      optimized pcre2-8-static)
