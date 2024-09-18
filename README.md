@@ -1,6 +1,6 @@
 # EditorConfig Notepad++ Plugin
 
-This is an [EditorConfig][] plugin for Notepad++.
+This is an [EditorConfig][] plugin for [Notepad++](https://notepad-plus-plus.org/).
 
 ## Buildstatus
 [![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/xuhdev/editorconfig-notepad-plus-plus?branch=master&svg=true)](https://ci.appveyor.com/project/xuhdev/editorconfig-notepad-plus-plus)
@@ -116,8 +116,8 @@ Feel free to submit bugs, feature requests, and other issues to the
 
 [cmake]: https://www.cmake.org
 [EditorConfig]: http://editorconfig.org
-[EditorConfig C core]: https://github.com/editorconfig/editorconfig-core
-[EditorConfig plugin for Notepad++]: https://github.com/editorconfig/editorconfig-notepad-plus-plus
+[EditorConfig C core]: https://github.com/editorconfig/editorconfig-core-c
+[EditorConfig plugin for Notepad++]: [https://github.com/editorconfig/editorconfig-notepad-plus-plus](https://github.com/bruderstein/nppPluginManager)
 [Microsoft Visual Studio]: https://www.visualstudio.com/
 [Notepad++ Plugin Manager]: https://bruderste.in/npp/pm/
 [download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
