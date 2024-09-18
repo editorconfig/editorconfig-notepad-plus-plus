@@ -10,9 +10,6 @@ This is an [EditorConfig][] plugin for [Notepad++](https://notepad-plus-plus.org
 
 ### Install from the Plugin Manager
 
-If you have [Notepad++ Plugin Manager][] installed (usually installed by
-default in Notepad++), you can install in this way.
-
 Launch Notepad++, click on the `Plugins` menu, then
 `Plugin Manager` -> `Show Plugin Manager`. In the `Available` tab, find
 `EditorConfig` in the list, check the checkbox and click on the `Install`
@@ -119,7 +116,6 @@ Feel free to submit bugs, feature requests, and other issues to the
 [EditorConfig C core]: https://github.com/editorconfig/editorconfig-core-c
 [EditorConfig plugin for Notepad++]: [https://github.com/editorconfig/editorconfig-notepad-plus-plus](https://github.com/bruderstein/nppPluginManager)
 [Microsoft Visual Studio]: https://www.visualstudio.com/
-[Notepad++ Plugin Manager]: https://bruderste.in/npp/pm/
 [download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
 [pcre]: https://ftp.pcre.org/pub/pcre
 [PowerShell]: https://docs.microsoft.com/en-us/powershell
