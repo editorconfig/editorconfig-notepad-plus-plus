@@ -1,6 +1,6 @@
 # this file is part of EditorConfig plugin for Notepad++
 #
-# Copyright (C) 2011-2016 EditorConfig Team <http://editorconfig.org>
+# Copyright (C) 2011-2016 EditorConfig Team <https://editorconfig.org>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
