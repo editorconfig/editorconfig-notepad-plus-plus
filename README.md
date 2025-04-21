@@ -112,11 +112,11 @@ Feel free to submit bugs, feature requests, and other issues to the
 
 
 [cmake]: https://www.cmake.org
-[EditorConfig]: http://editorconfig.org
+[EditorConfig]: https://editorconfig.org
 [EditorConfig C core]: https://github.com/editorconfig/editorconfig-core-c
 [EditorConfig plugin for Notepad++]: [https://github.com/editorconfig/editorconfig-notepad-plus-plus](https://github.com/bruderstein/nppPluginManager)
 [Microsoft Visual Studio]: https://www.visualstudio.com/
 [download]: https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
 [pcre]: https://ftp.pcre.org/pub/pcre
 [PowerShell]: https://docs.microsoft.com/en-us/powershell
-[properties]: http://editorconfig.org/#supported-properties
+[properties]: https://editorconfig.org/#supported-properties
