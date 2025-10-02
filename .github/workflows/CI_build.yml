@@ -12,7 +12,7 @@ jobs:
         build_configuration: [Release, Debug]
         build_platform: [x64, arm64, x86]
         build_vsver: [17]
-        PCRE2_VERSION: [10.44]
+        PCRE2_VERSION: [10.46]
 
     steps:
     - uses: actions/checkout@v4
