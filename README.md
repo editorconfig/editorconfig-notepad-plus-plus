@@ -3,6 +3,7 @@
 This is an [EditorConfig][] plugin for [Notepad++](https://notepad-plus-plus.org/).
 
 ## Buildstatus
+[![CI_build](https://github.com/editorconfig/editorconfig-notepad-plus-plus/actions/workflows/CI_build.yml/badge.svg)](https://github.com/editorconfig/editorconfig-notepad-plus-plus/actions/workflows/CI_build.yml)
 [![GitHub release](https://img.shields.io/github/tag/editorconfig/editorconfig-notepad-plus-plus.svg)](https://github.com/editorconfig/editorconfig-notepad-plus-plus/tags)
 
 ## Installation
