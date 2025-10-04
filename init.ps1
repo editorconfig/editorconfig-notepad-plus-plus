@@ -1,6 +1,6 @@
 param(
     $pcre="10.46",
-    $edc="0.12.9"
+    $edc="0.12.10"
 )
 
 $ErrorActionPreference="Stop"
