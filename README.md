@@ -37,7 +37,7 @@ Clone the [EditorConfig plugin for Notepad++][] sources or download and extract 
 To download [EditorConfig C core][] and [PRCE2][pcre] use the `init.ps1` script.
 
 ```powershell
-~> ./init.ps1 [-prce 10.32] [-edc 0.12.3]
+~> ./init.ps1 [-prce 10.46] [-edc 0.12.3]
 ```
 
 Arguments:
