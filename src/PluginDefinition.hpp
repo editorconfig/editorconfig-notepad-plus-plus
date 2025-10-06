@@ -97,7 +97,7 @@ void loadConfig();
 //
 // Parse EditorConfig file
 //
-void onBeforeSave(HWND hWnd);
+void onBeforeSave(HWND hWnd, uptr_t idFrom);
 
 //
 // Function which sets your command

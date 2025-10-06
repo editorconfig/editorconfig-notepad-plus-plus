@@ -72,7 +72,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         loadConfig();
         break;
     case NPPN_FILEBEFORESAVE:
-        onBeforeSave((HWND) notifyCode->nmhdr.hwndFrom);
+        onBeforeSave((HWND) notifyCode->nmhdr.hwndFrom, notifyCode->nmhdr.idFrom);
         break;
     default:
         break;
