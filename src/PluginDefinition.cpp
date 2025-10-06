@@ -215,10 +215,10 @@ void insertFinalNewline(bool insert)
         return;
 
     // Get the last line number
-    int lastLine = SendMessage(curScintilla, SCI_GETLINECOUNT, 0, 0) - 1;
+    intptr_t lastLine = ::SendMessage(curScintilla, SCI_GETLINECOUNT, 0, 0) - 1;
 
     // Get the length of that last line
-    int length = SendMessage(curScintilla, SCI_LINELENGTH, lastLine, 0);
+    intptr_t length = ::SendMessage(curScintilla, SCI_LINELENGTH, lastLine, 0);
 
     // Do we need to insert a final newline?
     if (insert)
@@ -230,7 +230,7 @@ void insertFinalNewline(bool insert)
         // What type of EOL must be inserted?
         char eolBuf[10];
         eolBuf[0] = 0;
-        int eolMode = SendMessage(curScintilla, SCI_GETEOLMODE, 0, 0);
+        int eolMode = static_cast<int>(::SendMessage(curScintilla, SCI_GETEOLMODE, 0, 0));
         switch (eolMode)
         {
             case SC_EOL_CRLF:
@@ -258,7 +258,7 @@ void insertFinalNewline(bool insert)
 
     // Find the last non-newline character
     length = SendMessage(curScintilla, SCI_GETTEXTLENGTH, 0, 0);
-    int pos = length;
+    intptr_t pos = length;
     while (pos > 0 && isNewline((char) SendMessage(curScintilla, SCI_GETCHARAT, pos - 1, 0)))
         pos--;
 
@@ -340,7 +340,7 @@ void onBeforeSave(HWND hWnd)
     // Save the folding behavior and set it to 0 to keep folds from opening
     // when modifying the file.
     HWND curScintilla = getCurrentScintilla();
-    int automatic_fold = SendMessage(curScintilla, SCI_GETAUTOMATICFOLD, 0, 0);
+    int automatic_fold = static_cast<int>(::SendMessage(curScintilla, SCI_GETAUTOMATICFOLD, 0, 0));
     SendMessage(curScintilla, SCI_SETAUTOMATICFOLD, 0, 0);
 
     // Trailing whitespace needs to be trimmed before 'insert_final_newline' is
