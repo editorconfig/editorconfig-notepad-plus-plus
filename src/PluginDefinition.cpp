@@ -1,6 +1,7 @@
 //this file is part of EditorConfig plugin for Notepad++
 //
 //Copyright (C)2003 Don HO <donho@altern.org>
+//Copyright (C)2025 Sven Strickroth <email@cs-ware.de>
 //Copyright (C)2011-2016 EditorConfig Team <https://editorconfig.org>
 //
 //This program is free software; you can redistribute it and/or
@@ -266,12 +267,24 @@ void insertFinalNewline(bool insert)
     SendMessage(curScintilla, SCI_DELETERANGE, pos, length - pos);
 }
 
-void onBeforeSave(HWND hWnd)
+static void selectBufferId(HWND hWnd, uptr_t bufferId)
 {
+    const int32_t docPosInfo = static_cast<int32_t>(::SendMessage(hWnd, NPPM_GETPOSFROMBUFFERID, bufferId, 0));
+    SendMessage(hWnd, NPPM_ACTIVATEDOC, docPosInfo >> 30, docPosInfo & 0x3FFFFFFF);
+}
+
+void onBeforeSave(HWND hWnd, uptr_t idFrom)
+{
+    const uptr_t keepBufferID = ::SendMessage(hWnd, NPPM_GETCURRENTBUFFERID, 0, 0);
+    selectBufferId(hWnd, idFrom);
+
     editorconfig_handle eh = editorconfig_handle_init();
 
     if (!parseConfig(eh))
+    {
+        selectBufferId(hWnd, keepBufferID);
         return;
+    }
 
     enum {
         NPPEC_BOOLVAL_UNSPECIFIED = -1,
@@ -365,6 +378,8 @@ void onBeforeSave(HWND hWnd)
     SendMessage(curScintilla, SCI_SETAUTOMATICFOLD, automatic_fold, 0);
 
     editorconfig_handle_destroy(eh);
+
+    selectBufferId(hWnd, keepBufferID);
 }
 
 void onReloadEditorConfig()
