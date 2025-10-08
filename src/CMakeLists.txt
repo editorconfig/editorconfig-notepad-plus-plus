@@ -31,6 +31,11 @@ if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif(MSVC)
 
+# enable all warnings
+if(MSVC)
+    add_compile_options(/W4)
+endif(MSVC)
+
 ## section: source files
 set(NppEditorConfig_SOURCE_FILES
     ./DlgAbout.cpp

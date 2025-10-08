@@ -24,7 +24,7 @@ extern FuncItem funcItem[nbFunc];
 
 BOOL APIENTRY DllMain(HANDLE hModule, 
         DWORD  reasonForCall, 
-        LPVOID lpReserved)
+        LPVOID)
 {
     switch (reasonForCall)
     {
@@ -84,8 +84,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // Please let me know if you need to access to some messages :
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
-extern "C" __declspec(dllexport) LRESULT messageProc(UINT message,
-        WPARAM wParam, LPARAM lParam)
+extern "C" __declspec(dllexport) LRESULT messageProc(UINT, WPARAM, LPARAM)
 {
     return TRUE;
 }
