@@ -36,6 +36,12 @@ if(MSVC)
     add_compile_options(/W4)
 endif(MSVC)
 
+# always build debug symbols
+if(MSVC)
+    add_compile_options(/Zi)
+    add_link_options(/DEBUG)
+endif(MSVC)
+
 ## section: source files
 set(NppEditorConfig_SOURCE_FILES
     ./DlgAbout.cpp
