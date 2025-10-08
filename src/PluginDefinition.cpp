@@ -58,16 +58,22 @@ void pluginCleanUp()
 //
 static bool parseConfig(editorconfig_handle eh)
 {
-    TCHAR fileNamet[MAX_PATH];
-    char  fileName[MAX_PATH];
-
+    WCHAR wcFileName[MAX_PATH];
     // get the file name
-    ::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH, (LPARAM)fileNamet);
-    wcstombs(fileName, fileNamet, MAX_PATH);
+    if (::SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, sizeof(wcFileName), reinterpret_cast<LPARAM>(wcFileName)) == FALSE)
+        return false;
+    const size_t bytes_needed = wcstombs(nullptr, wcFileName, 0);
+    if (bytes_needed == static_cast<size_t>(-1))
+        return false;
+    std::unique_ptr<char[]> fileName = std::unique_ptr<char[]>(new (std::nothrow) char[bytes_needed + 1]);
+    if (!fileName)
+        return false;
+    if (wcstombs(fileName.get(), wcFileName, bytes_needed) == static_cast<size_t>(-1))
+        return false;
 
     // start parsing
     int err_num;
-    if ((err_num = editorconfig_parse(fileName, eh)) != 0 &&
+    if ((err_num = editorconfig_parse(fileName.get(), eh)) != 0 &&
             /* Ignore full path error, whose error code is
              * EDITORCONFIG_PARSE_NOT_FULL_PATH */
             err_num != EDITORCONFIG_PARSE_NOT_FULL_PATH) {
@@ -113,7 +119,7 @@ void loadConfig()
 
     // Parse the EditorConfig file
     eh = editorconfig_handle_init();
-    if (!parseConfig(eh))
+    if (!eh || !parseConfig(eh))
         return;
 
     // Get the current scintilla
@@ -280,7 +286,7 @@ void onBeforeSave(HWND hWnd, uptr_t idFrom)
 
     editorconfig_handle eh = editorconfig_handle_init();
 
-    if (!parseConfig(eh))
+    if (!eh || !parseConfig(eh))
     {
         selectBufferId(hWnd, keepBufferID);
         return;
@@ -394,7 +400,7 @@ void showEditorConfigSettings()
 
     // Parse the EditorConfig file
     eh = editorconfig_handle_init();
-    if (!parseConfig(eh))
+    if (!eh || !parseConfig(eh))
         return;
 
     std::tstringstream settings;
