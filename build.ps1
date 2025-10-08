@@ -134,6 +134,7 @@ if ($install) {
         }
         npp {
             Copy-Item $dest\$arch\$proj\bin\unicode\$config\NppEditorConfig.dll -Destination $dest\$arch\ -Force -Confirm:$false
+            Copy-Item $dest\$arch\$proj\bin\unicode\$config\NppEditorConfig.pdb -Destination $dest\$arch\ -Force -Confirm:$false
         }
     }
 }
