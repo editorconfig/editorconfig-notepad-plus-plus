@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: NppEditorConfig-${{ steps.tagName.outputs.tag }}-${{ matrix.build_platform }}
-          path: bin\${{ matrix.build_platform }}\NppEditorConfig.dll
+          path: bin\${{ matrix.build_platform }}\NppEditorConfig.*
 
 
     - name: Release on tagging
