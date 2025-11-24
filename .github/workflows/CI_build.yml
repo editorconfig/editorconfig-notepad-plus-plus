@@ -15,7 +15,7 @@ jobs:
         PCRE2_VERSION: [10.46]
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
 
