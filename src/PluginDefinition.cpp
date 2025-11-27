@@ -363,7 +363,8 @@ void onBeforeSave(HWND hWnd, uptr_t idFrom)
     SendMessage(curScintilla, SCI_SETAUTOMATICFOLD, 0, 0);
 
     // Make sure there is no active selection
-    SendMessage(curScintilla, SCI_CLEARSELECTIONS, 0, 0);
+    const int curPos = static_cast<int>(SendMessage(curScintilla, SCI_GETCURRENTPOS, 0, 0));
+    SendMessage(curScintilla, SCI_SETEMPTYSELECTION, curPos, 0);
 
     // Trailing whitespace needs to be trimmed before 'insert_final_newline' is
     // applied.
