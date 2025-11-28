@@ -105,6 +105,13 @@ The EditorConfig Notepad++ plugin supports the following EditorConfig
 * charset
 * root (only used by EditorConfig core)
 
+## Fix indentation
+
+In v0.5.0 a new menu item was added to the plugin named `Fix indentation`.
+This is very simple way to fix the indentation style (tabs or spaces) at the **beginning** of the line.
+
+It basically is the same as when you use `Ctrl+A` followed by `Tab` (to indent everything one level) and directly follow by `Shift-Tab` (to unindent everything back). It works most of the time, but only for the tabs/spaces at the start of a line, not at the end (like with comments at the end of the line are aligned).
+
 ## Bugs and Feature Requests
 
 Feel free to submit bugs, feature requests, and other issues to the

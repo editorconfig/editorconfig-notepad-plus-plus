@@ -273,6 +273,35 @@ void insertFinalNewline(bool insert)
     SendMessage(curScintilla, SCI_DELETERANGE, pos, length - pos);
 }
 
+//
+// Fix the indentation of the document
+//
+void fixIndentation()
+{
+    const HWND curScintilla = getCurrentScintilla();
+    if (curScintilla == NULL)
+        return;
+
+    // Make sure the undo works as expected
+    SendMessage(curScintilla, SCI_BEGINUNDOACTION, 0, 0);
+
+    // Get the number of lines in the document
+    const int linecount = static_cast<int>(SendMessage(curScintilla, SCI_GETLINECOUNT, 0, 0)) - 1;
+
+    // Go through the lines
+    for (int line = 1; line <= linecount; line++)
+    {
+        // Get the indentation level of the current line
+        const int level = static_cast<int>(SendMessage(curScintilla, SCI_GETLINEINDENTATION, line, 0));
+
+        // Increase and decrease the indention level to reset the indentation style
+        SendMessage(curScintilla, SCI_SETLINEINDENTATION, line, level + 1);
+        SendMessage(curScintilla, SCI_SETLINEINDENTATION, line, level);
+    }
+
+    SendMessage(curScintilla, SCI_ENDUNDOACTION, 0, 0);
+}
+
 static void selectBufferId(HWND hWnd, uptr_t bufferId)
 {
     const int32_t docPosInfo = static_cast<int32_t>(::SendMessage(hWnd, NPPM_GETPOSFROMBUFFERID, bufferId, 0));
@@ -392,11 +421,6 @@ void onBeforeSave(HWND hWnd, uptr_t idFrom)
     selectBufferId(hWnd, keepBufferID);
 }
 
-void onReloadEditorConfig()
-{
-    loadConfig();
-}
-
 void showEditorConfigSettings()
 {
     int name_value_count;
@@ -427,6 +451,7 @@ void showEditorConfigSettings()
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
+//
 void commandMenuInit()
 {
     //--------------------------------------------//
@@ -439,15 +464,13 @@ void commandMenuInit()
     //            ShortcutKey *shortcut,          // optional. Define a shortcut to trigger this command
     //            bool check0nInit                // optional. Make this menu item be checked visually
     //            );
-    setCommand(0, TEXT("Reload EditorConfig for this file"),
-            onReloadEditorConfig, NULL, false);
-    setCommand(1, TEXT("Show EditorConfig settings for this file"),
-        showEditorConfigSettings, NULL, false);
-
-    // Separator
-    setCommand(2, TEXT(""), NULL, NULL, false);
-
-    setCommand(3, TEXT("About..."), showAboutDlg, NULL, false);
+    int id = 0;
+    setCommand(id++, TEXT("Reload EditorConfig for this file"), loadConfig, NULL, false);
+    setCommand(id++, TEXT("Show EditorConfig settings for this file"), showEditorConfigSettings, NULL, false);
+    setCommand(id++, TEXT(""), NULL, NULL, false);  // Separator
+    setCommand(id++, TEXT("Fix indentation"), fixIndentation, NULL, false);
+    setCommand(id++, TEXT(""), NULL, NULL, false);  // Separator
+    setCommand(id++, TEXT("About..."), showAboutDlg, NULL, false);
 }
 
 //
