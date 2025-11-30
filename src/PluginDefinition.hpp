@@ -17,7 +17,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
- 
+
 #pragma once
 
 #include <string>
@@ -26,7 +26,7 @@
 #include "editorconfig/editorconfig.h"
 
 //
-// All difinitions of plugin interface
+// All definitions of plugin interface
 //
 #include "PluginInterface.hpp"
 
@@ -55,8 +55,7 @@ const TCHAR NPP_PLUGIN_NAME[] = TEXT("EditorConfig");
 //
 // Here define the number of your plugin commands
 //
-const int nbFunc = 4;
-
+const int nbFunc = 6;
 
 struct NppData;
 extern HINSTANCE hInst;
