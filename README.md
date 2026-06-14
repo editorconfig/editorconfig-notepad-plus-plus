@@ -127,3 +127,7 @@ Feel free to submit bugs, feature requests, and other issues to the
 [pcre]: https://ftp.pcre.org/pub/pcre
 [PowerShell]: https://docs.microsoft.com/en-us/powershell
 [properties]: https://editorconfig.org/#supported-properties
+
+### Issue #68
+- **Status:** Fix proposed in PR
+- **Description:** New release needed
